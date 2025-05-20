@@ -1,0 +1,66 @@
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Deploy to Pages
+
+on:
+  push:
+    branches:
+      - main # main 分支收到 push 事件时执行该 action
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  schedule:
+    # Runs at 00:00 UTC every week
+    - cron: "0 0 * * 1"
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出仓库
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the website
+        run: |
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GH_PAGES_PAT }}
+          publish_dir: ./out  # 网站的输出目录
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          external_repository: agent-race/agent-race.github.io  # 指定你的 GitHub Pages 仓库（目标仓库）
+          commit_message: 'Automated deployment from Repository agent-race-website'
