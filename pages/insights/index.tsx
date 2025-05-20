@@ -13,6 +13,7 @@ import TableLeakageGpt4 from "./table.leakage.gpt4";
 import TableLeakageUserData from "./table.leakage.user.data";
 import TableDeaDifferentPosition from "./table.dea.different.position";
 import TableComSize from "./table.com_size"
+import TableAccuracy from "./table.framework_accuracy";
 
 const time_and_token = [
   {
@@ -92,12 +93,14 @@ const tool_call = [
     description: (
       <>
         <div>
-          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image radius="md" src="figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
-          </div>
-          <Text ta="center" c="dimmed">
-            Figure 4. The execution time per call for each tool.
-          </Text>
+          <figure>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <Image radius="md" src="figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            </div>
+            <Text ta="center" c="dimmed">
+              Figure 4. The execution time per call for each tool.
+            </Text>
+          </figure>
           <p></p>
           <Title order={4}>Takeaways:</Title>
           <Text>
@@ -192,6 +195,28 @@ const com_size = [
 ];
 
 
+const accuracy = [
+  {
+    emoji: <IconPackage color="#41B755" />,
+    value: "Rigid output validation and can amplify token overhead and reduce response success rates.",
+    description: (
+      <>
+        <div>
+          <TableAccuracy />
+          <p></p>
+          <Title order={4}>Takeaways:</Title>
+          <Text>
+            In some frameworks such as LangChain, ReAct-style agents implement strict output formatting checks and retry mechanisms when model responses do not match expected tool invocation formats. While such mechanisms improve structural robustness, they can backfire in certain scenarios.<br />
+            In our evaluation, we found that when the model skips tool invocation and instead provides a direct answer (this happens especially with some of the simpler queries in the HumanEval dataset), the framework retries the prompt, often multiple times. Each retry includes previous failed attempts in the context, leading to a rapid increase in prompt length and token consumption as well as a lower likelihood of producing a clean, valid output on later attempts.<br />
+            An additional point to clarify is that the GAIA dataset exhibits relatively low accuracy. This is primarily because GAIA tasks often require complex task planning and the use of multiple tools, posing significant challenges for all evaluated frameworks.It is important to note that the primary focus of this study is not on accuracy, but rather on comparing the performance overhead (e.g., time, token usage) across different frameworks. Therefore, we ensured that the accuracy across frameworks remains broadly comparable, without conducting detailed task-level progress analysis as seen in some related work. By carefully controlling experimental parameters, the fairness of our comparisons remains valid, even in the presence of lower absolute accuracy.
+          </Text>
+        </div>
+      </>
+    ),
+  },
+];
+
+
 export default function Benchmark() {
   const items_time_and_token = time_and_token.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
@@ -221,6 +246,13 @@ export default function Benchmark() {
     </Accordion.Item>
   ));
 
+  const items_accuracy = accuracy.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Panel>{item.description}</Accordion.Panel>
+    </Accordion.Item>
+  ));
+
   return (
     <Container>
       <Title order={1} className={css.pagetitle}>
@@ -230,11 +262,11 @@ export default function Benchmark() {
       <Title order={2} className={css.pagetitle}>
         Execution Time and Token Consumption
       </Title>
-      <Text c="dimmed">We focus on answering the following research questions:</Text>
+      {/* <Text c="dimmed">We focus on answering the following research questions:</Text>
 
       <List mb="sm" type="ordered" c="dimmed">
         <List.Item>?</List.Item>
-      </List>
+      </List> */}
 
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Accordion variant="contained" radius="md" defaultValue="">
@@ -246,11 +278,11 @@ export default function Benchmark() {
         Tool Calling
       </Title>
 
-      <Text c="dimmed">We focus on answering the following research questions:</Text>
+      {/* <Text c="dimmed">We focus on answering the following research questions:</Text>
       <List mb="sm" type="ordered" c="dimmed">
         <List.Item>?</List.Item>
         <List.Item>?</List.Item>
-      </List>
+      </List> */}
 
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Accordion variant="contained" radius="md" defaultValue="">
@@ -287,6 +319,22 @@ export default function Benchmark() {
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Accordion variant="contained" radius="md" defaultValue="">
           {items_com_size}
+        </Accordion>
+      </Stack>
+
+      <Title order={2} className={css.pagetitle}>
+        Accuracy
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_accuracy}
         </Accordion>
       </Stack>
 
