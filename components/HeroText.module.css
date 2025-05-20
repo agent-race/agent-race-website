@@ -59,7 +59,7 @@
 }
 
 .highlight {
-  color: light-dark(var(--mantine-color-blue-6), var(--mantine-color-blue-4));
+  color: light-dark(var(--mantine-color-green-6), var(--mantine-color-green-4));
 }
 
 .description {
@@ -82,6 +82,7 @@
 }
 
 .control {
+  background-color: var(--mantine-color-green-6);
   &:not(:first-of-type) {
     margin-left: var(--mantine-spacing-md);
   }

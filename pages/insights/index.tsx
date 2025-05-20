@@ -217,14 +217,14 @@ export default function Benchmark() {
       </Title>
 
       <Title order={2} className={css.pagetitle}>
-        Leakage of Training Data
+        Execution Time and Token Consumption
       </Title>
       <Text c="dimmed">We focus on answering the following research questions:</Text>
 
       <List mb="sm" type="ordered" c="dimmed">
-        <List.Item>Does the privacy risks of in LLMs correspond proportionally with their increasing scale and effectiveness?</List.Item>
-        <List.Item>How are different data characteristics associated with the privacy risks of LLMs?</List.Item>
-        <List.Item>Are there practical privacy-preserving approaches when deploying LLMs?</List.Item>
+        <List.Item>?</List.Item>
+        <List.Item>?</List.Item>
+        <List.Item>?</List.Item>
       </List>
 
       <Stack bg="var(--mantine-color-body)" gap="sm">
@@ -234,14 +234,14 @@ export default function Benchmark() {
       </Stack>
 
       <Title order={2} className={css.pagetitle}>
-        Leakage of Prompts
+        Tool Calling
       </Title>
 
       <Text c="dimmed">We conduct a comprehensive evaluation of prompt privacy using different Prompt Leaking Attack (PLA) methods, models, and potential defenses. We focus on answering the following research questions:</Text>
       <List mb="sm" type="ordered" c="dimmed">
-        <List.Item>Is prompt easily leaked using attack prompts?</List.Item>
-        <List.Item>How does the risk of prompt leakage vary across different LLMs?</List.Item>
-        <List.Item>Is it possible to protect the prompts by using defensive prompting?</List.Item>
+        <List.Item>?</List.Item>
+        <List.Item>?</List.Item>
+        <List.Item>?</List.Item>
       </List>
 
       <Stack bg="var(--mantine-color-body)" gap="sm">
@@ -251,20 +251,38 @@ export default function Benchmark() {
       </Stack>
 
       <Title order={2} className={css.pagetitle}>
-        Leakage of User Data
+        RAG
       </Title>
-      <Text mb="sm" c="dimmed">
+      {/* <Text mb="sm" c="dimmed">
         We use an open-sourced{" "}
         <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
           toolkit
         </Anchor>{" "}
         to explore the potential leakage of user data when using LLMs
-      </Text>
+      </Text> */}
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Accordion variant="contained" radius="md" defaultValue="">
           {items_section6}
         </Accordion>
       </Stack>
+
+      <Title order={2} className={css.pagetitle}>
+        Communication Size
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_section6}
+        </Accordion>
+      </Stack>
+
+      
     </Container>
   );
 }
