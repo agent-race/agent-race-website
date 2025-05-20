@@ -4,6 +4,8 @@ import { Dots } from "./Dots";
 import classes from "./HeroText.module.css";
 import { useRouter } from "next/router";
 import { IconAward, IconCertificate, IconBolt } from "@tabler/icons-react";
+import { LuAlarmClock } from "react-icons/lu";
+import { VscTools } from "react-icons/vsc";
 
 export function HeroText(scrollIntoView: any) {
   const router = useRouter();
@@ -14,9 +16,22 @@ export function HeroText(scrollIntoView: any) {
       <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} /> */}
       <IconBolt className={classes.dots} style={{ left: 0, top: 0 }} />
-      <IconBolt className={classes.dots} style={{ left: 60, top: 0 }} />
-      <IconBolt className={classes.dots} style={{ left: 0, top: 140 }} />
+      <LuAlarmClock className={classes.dots} style={{ left: 60, top: 0 }} />
+      <VscTools className={classes.dots} style={{ left: 0, top: 140 }} />
       <IconBolt className={classes.dots} style={{ right: 0, top: 60 }} />
+      <LuAlarmClock className={classes.dots} style={{ right: 140, top: 60 }} />
+      <IconBolt className={classes.dots} style={{ right: 120, top: 30 }} />
+      <VscTools className={classes.dots} style={{ right: 30, top: 90 }} />
+      <IconBolt className={classes.dots} style={{ right: 20, top: 70 }} />
+      <LuAlarmClock className={classes.dots} style={{ right: 100, top: 60 }} />
+      <IconBolt className={classes.dots} style={{ right: 130, top: 90 }} />
+      <IconBolt className={classes.dots} style={{ right: 90, top: 80 }} />
+      <LuAlarmClock className={classes.dots} style={{ right: 100, top: 70 }} />
+      <VscTools className={classes.dots} style={{ right: 80, top: 60 }} />
+      <VscTools className={classes.dots} style={{ right: 120, top: 90 }} />
+      <IconBolt className={classes.dots} style={{ right: 40, top: 80 }} />
+      <LuAlarmClock className={classes.dots} style={{ right: 50, top: 70 }} />
+      
 
       <div className={classes.inner}>
         <Title className={classes.title}>
