@@ -33,7 +33,7 @@ const time_and_token = [
         <div>
           <Title order={4}>Takeaways:</Title>
           <Text>
-            Figure 3. presents the breakdown of agent execution time across four benchmark scenarios. Across all settings, LLM inference consistently dominates runtime. Even in the GAIA scenario, which is explicitly designed to be tool-intensive and involves frequent calls to external APIs, LLM inference accounts for more than 85\% of the total execution time in most frameworks. In simpler workflows such as HumanEval and AlpacaEval, the proportion exceeds 95\%. This highlights that LLM inference, due to its computational demands and frequent invocation, remains the primary bottleneck in agent execution, regardless of the complexity or type of task.<br />
+            Figure 3. presents the breakdown of agent execution time across four benchmark scenarios. Across all settings, LLM inference consistently dominates runtime. Even in the GAIA scenario, which is explicitly designed to be tool-intensive and involves frequent calls to external APIs, LLM inference accounts for more than 85% of the total execution time in most frameworks. In simpler workflows such as HumanEval and AlpacaEval, the proportion exceeds 95%. This highlights that LLM inference, due to its computational demands and frequent invocation, remains the primary bottleneck in agent execution, regardless of the complexity or type of task.<br />
             Moreover, we observe that the cost of LLM inference is further exacerbated by large variations in token efficiency across frameworks. There is a strong positive correlation between LLM inference time and token consumption. Some frameworks, notably CrewAI, LlamaIndex, and AgentScope, consistently exhibit higher token usage, leading to significantly prolonged inference times and increased resource consumption. We identify two main causes of token inefficiency: <span style={{ fontWeight: 'bold' }}>appending unnecessary history to prompts</span> and <span style={{ fontWeight: 'bold' }}>using verbose prompts</span>.<br />
             We observe that CrewAI and AgentScope elevated token usage arises from their design choice. In their implementation, the LLM stores all intermediate inputs and outputs as memory and appends this memory to each new prompt. As a result, the prompt length—and thus token count—grows with every step of reasoning. <br />
             In the ReAct workflow, LlamaIndex consumes a significant amount of prompts, primarily due to the observation portion returned to the LLM after tool invocation. Additionally, for queries that fail to execute successfully, the number of reasoning + action iterations increases, leading to a corresponding growth in the observation-related prompts.
@@ -94,18 +94,18 @@ const tool_call = [
       <>
         <figure>
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-              <Image radius="md" src="figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+              <Image radius="md" src="Figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
             <Text ta="center" c="dimmed">
               Figure 4. The execution time per call for each tool.
             </Text>
-          </figure>
+        </figure>
         <div>
           <p></p>
           <Title order={4}>Takeaways:</Title>
           <Text>
             We analyze the execution cost of various tool types across multiple LLM agent frameworks, as illustrated in Figure 4. The results reveal substantial variation in tool execution efficiency between frameworks, particularly for high-cost operations. Among all tool categories, search and figure-related tools usually incur the highest latency, often dominating total tool execution time within a workflow.<br />
-            For instance, the figure loader takes 2.7 seconds to execute in CrewAI, but exceeds 30 seconds in AgentScope, indicating considerable framework-dependent overhead. In contrast, lightweight tools such as txt_tool and docx_tool typically complete in under a millisecond, demonstrating minimal variance. Tools like pdf_tool and python_tool exhibit moderate differences in runtime, depending on each framework’s implementation and I/O strategy. <br /> 
+            For instance, the figure loader takes 2.7 seconds to execute in CrewAI, but exceeds 30 seconds in AgentScope, indicating considerable framework-dependent overhead. In contrast, lightweight tools such as <span style={{ fontWeight: 'bold',fontFamily: 'monospace',backgroundColor: '#f5f5f5', padding: '2px 4px', borderRadius: '3px', color: '#d63384' }}>txt_tool</span> and docx_tool typically complete in under a millisecond, demonstrating minimal variance. Tools like pdf_tool and python_tool exhibit moderate differences in runtime, depending on each framework’s implementation and I/O strategy. <br /> 
             Additionally, some frameworks (e.g., AgentScope) show disproportionately high total tool processing time, driven primarily by inefficient handling of image processing or multimedia tasks. This highlights the importance of optimizing high-latency tools, particularly in scenarios where tool invocation is frequent or tightly coupled with LLM inference. <br /> 
             While LLM inference remains the dominant bottleneck in most of our benchmarks, more complex, tool-heavy scenarios, such as document analysis or multimodal agent tasks, may shift the performance bottleneck toward tool execution. Frameworks aiming to support such use cases must pay greater attention to optimizing tool orchestration and external API integration.
 
