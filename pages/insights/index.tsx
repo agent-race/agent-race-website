@@ -31,9 +31,10 @@ const time_and_token = [
         <div>
           <Title order={4}>Takeaways:</Title>
           <Text>
-            {/* Figure 3. presents the breakdown of agent execution time across four benchmark scenarios. Across all settings, LLM inference consistently dominates runtime. Even in the GAIA scenario, which is explicitly designed to be tool-intensive and involves frequent calls to external APIs, LLM inference accounts for more than 85\% of the total execution time in most frameworks. In simpler workflows such as HumanEval and AlpacaEval, the proportion exceeds 95\%. This highlights that LLM inference, due to its computational demands and frequent invocation, remains the primary bottleneck in agent execution, regardless of the complexity or type of task.<br /> */}
-            {/* Moreover, we observe that the cost of LLM inference is further exacerbated by large variations in token efficiency across frameworks. There is a strong positive correlation between LLM inference time and token consumption. Some frameworks, notably CrewAI, LlamaIndex, and AgentScope, consistently exhibit higher token usage, leading to significantly prolonged inference times and increased resource consumption. We identify two main causes of token inefficiency: <Text weight={700}>appending unnecessary history to prompts</Text> and <Text weight={700}>using verbose prompts</Text>.<br /> */}
-            {/* We observe that CrewAI and AgentScope elevated token usage arises from their design choice. In their implementation, the LLM stores all intermediate inputs and outputs as memory and appends this memory to each new prompt. As a result, the prompt length—and thus token count—grows with every step of reasoning. <br /> */}
+            Figure 3. presents the breakdown of agent execution time across four benchmark scenarios. Across all settings, LLM inference consistently dominates runtime. Even in the GAIA scenario, which is explicitly designed to be tool-intensive and involves frequent calls to external APIs, LLM inference accounts for more than 85\% of the total execution time in most frameworks. In simpler workflows such as HumanEval and AlpacaEval, the proportion exceeds 95\%. This highlights that LLM inference, due to its computational demands and frequent invocation, remains the primary bottleneck in agent execution, regardless of the complexity or type of task.<br />
+            Moreover, we observe that the cost of LLM inference is further exacerbated by large variations in token efficiency across frameworks. There is a strong positive correlation between LLM inference time and token consumption. Some frameworks, notably CrewAI, LlamaIndex, and AgentScope, consistently exhibit higher token usage, leading to significantly prolonged inference times and increased resource consumption. We identify two main causes of token inefficiency: <b>appending unnecessary history to prompts</b> and <b>using verbose prompts</b>.<br />
+            We observe that CrewAI and AgentScope elevated token usage arises from their design choice. In their implementation, the LLM stores all intermediate inputs and outputs as memory and appends this memory to each new prompt. As a result, the prompt length—and thus token count—grows with every step of reasoning. <br />
+            In the ReAct workflow, LlamaIndex consumes a significant amount of prompts, primarily due to the observation portion returned to the LLM after tool invocation. Additionally, for queries that fail to execute successfully, the number of reasoning + action iterations increases, leading to a corresponding growth in the observation-related prompts.
           </Text>
         </div>
       </>
@@ -98,7 +99,13 @@ const tool_call = [
           </Text>
           <p></p>
           <Title order={4}>Takeaways:</Title>
-          <Text>Prompts can be easily leaked with prompting attacks. Directly asking LLMs to ignore and print the previous instructions can leak to serious prompt leakage in many LLMs.</Text>
+          <Text>
+            We analyze the execution cost of various tool types across multiple LLM agent frameworks, as illustrated in Figure 4. The results reveal substantial variation in tool execution efficiency between frameworks, particularly for high-cost operations. Among all tool categories, search and figure-related tools usually incur the highest latency, often dominating total tool execution time within a workflow.<br />
+            For instance, the figure loader takes 2.7 seconds to execute in CrewAI, but exceeds 30 seconds in AgentScope, indicating considerable framework-dependent overhead. In contrast, lightweight tools such as txt_tool and docx_tool typically complete in under a millisecond, demonstrating minimal variance. Tools like pdf_tool and python_tool exhibit moderate differences in runtime, depending on each framework’s implementation and I/O strategy. <br /> 
+            Additionally, some frameworks (e.g., AgentScope) show disproportionately high total tool processing time, driven primarily by inefficient handling of image processing or multimedia tasks. This highlights the importance of optimizing high-latency tools, particularly in scenarios where tool invocation is frequent or tightly coupled with LLM inference. <br /> 
+            While LLM inference remains the dominant bottleneck in most of our benchmarks, more complex, tool-heavy scenarios, such as document analysis or multimodal agent tasks, may shift the performance bottleneck toward tool execution. Frameworks aiming to support such use cases must pay greater attention to optimizing tool orchestration and external API integration.
+
+          </Text>
         </div>
       </>
     ),
@@ -145,7 +152,11 @@ const rag = [
           <TableLeakageUserData />
           <p></p>
           <Title order={4}>Takeaways:</Title>
-          <Text>LLMs can extract user data from input context due to their advanced reasoning capabilities. Developing techniques that aim to enable the private usage of LLMs while safeguarding query prompts is necessary.</Text>
+          <Text>
+            While RAG workflows are increasingly adopted to enhance factual grounding, our benchmarking reveals that database performance, particularly during embedding and retrieval, is a critical yet frequently neglected factor. Figure 3(c). illustrates the variation in retrieval latency across frameworks, exposing significant performance disparities.<br />
+            One notable example is AgentScope, which demonstrates high vectorization latency. This stems from its design: during the database setup phase, AgentScope invokes a large embedding model to compute dense vector representations. The latency of this embedding model, often implemented as a separate LLM call, substantially increases the overall vectorization time. Similarly, Phidata exhibits elevated vectorization latency due to its use of a two-step pipeline. First, its built-in <b>csv_tool<b/> loads documents row-by-row; then, it applies a SentenceTransformer model to compute embeddings. Our benchmark confirms that Phidata's \texttt{csv\_tool} itself is a relatively slow component, compounding the overall vectorization time. From our observation, vector databases such as Faiss are faster than other implementations.<br />
+            These observations highlight the need for more attention to retrieval pipeline design, especially in frameworks that aim to support real-time or large-scale RAG deployments. Optimization opportunities include batching document embeddings, using faster embedding models, minimizing redundant file reads, and caching frequent queries.
+          </Text>
         </div>
       </>
     ),
@@ -154,7 +165,7 @@ const rag = [
 
 const com_size = [
   {
-    emoji: <IconPackage color="#41B755" />,
+    emoji: <IconPackage color="#2D595B" />,
     value: "Inefficient communication architecture and package design lead to high communication overhead in the multi-agent setting.",
     description: (
       <>
@@ -162,7 +173,11 @@ const com_size = [
           <TableLeakageUserData />
           <p></p>
           <Title order={4}>Takeaways:</Title>
-          <Text>LLMs can extract user data from input context due to their advanced reasoning capabilities. Developing techniques that aim to enable the private usage of LLMs while safeguarding query prompts is necessary.</Text>
+          <Text>
+            In multi-agent frameworks, communication between agents is often overlooked as a source of inefficiency. However, our analysis reveals large discrepancies in communication size across frameworks, as shown in Table 2. These differences arise not only from framework-specific message formats but also from architectural design choices, especially in multi-agent workflows like MoA.<br />
+            Notably, frameworks such as CrewAI, which adopt a centralized communication pattern, exhibit significantly higher communication costs. In these designs, a central agent coordinates multiple sub-agents by sequentially delegating subtasks and collecting responses. For example, in CrewAI's MoA implementation, the center agent queries three sub-agents in sequence and aggregates their outputs. Each LLM invocation by the center agent accumulates prior messages in memory, causing the prompt size and the communication payload to grow linearly with the number of sub-agents. Phidata, on the other hand, incurs substantial communication overhead due to its design. In addition to the core message, it returns a duplicated <b>content<b/> field that mirrors the final message. This, combined with additional metadata fields, results in large overhead sizes.<br />
+            These findings indicate that communication cost is not merely a function of task complexity but also of framework design. In large-scale deployments or bandwidth-constrained environments, excessive inter-agent message sizes, especially those driven by redundant content or sequential message accumulation, can significantly impact system performance and cost. Future agent frameworks should consider streamlined communication protocols, selective message summarization, or compressing intermediate results to reduce unnecessary transfer overhead.
+          </Text>
         </div>
       </>
     ),
