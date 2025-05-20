@@ -15,8 +15,8 @@ import TableDeaDifferentPosition from "./table.dea.different.position";
 
 const time_and_token = [
   {
-    emoji: <IconDimensions />,
-    value: "Effect of Model Size",
+    emoji: <IconDimensions color="#41B755" />,
+    value: "LLM inference usually dominates runtime across all agent frameworks, and inefficient prompt engineering, such as appending full histories and using verbose prompts, exacerbates both latency and cost.",
     description: (
       <>
         {/* <TableModelSize /> */}
@@ -85,18 +85,11 @@ const time_and_token = [
 
 const tool_call = [
   {
-    emoji: <IconTank color="#1864AB" />,
-    value: "Leakage Ratio on Different Attacks",
+    emoji: <IconTank color="#41B755" />,
+    value: "Tool execution efficiency varies widely across frameworks, with search and figure-related tools introducing disproportionately high latency.",
     description: (
       <>
         <div>
-          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image radius="md" src="fuzz_rate.png" alt="fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "500px" }} />
-          </div>
-          <Text ta="center" c="dimmed">
-            Figure 7. The FuzzRate of different attacks on different models. <br /> The ignore_print and spell_check are the two strongest attacks on Llama2-70b-chat.
-          </Text>
-          <p></p>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <Image radius="md" src="90_fuzz_rate.png" alt="90fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "500px" }} />
           </div>
@@ -110,42 +103,42 @@ const tool_call = [
       </>
     ),
   },
-  {
-    emoji: <IconPackage color="#1864AB" />,
-    value: "Leakage Ratio on Different Models",
-    description: (
-      <>
-        <div>
-          <TableLeakageLlama />
-          <p></p>
-          <Title order={4}>Takeaways:</Title>
-          <Text>For the same series of models, the larger model has a higher risk of prompt leakage, potentially because they are better at following the PLA instructions to output the private prompts.</Text>
-          {/* <Title order={4}>Takeaways:</Title> */}
-          {/* <p></p> */}
-        </div>
-      </>
-    ),
-  },
-  {
-    emoji: <IconShieldHalfFilled color="#1864AB" />,
-    value: "Effectiveness of Defensive Prompting",
-    description: (
-      <>
-        <div>
-          <TableLeakageGpt4 />
-          <p></p>
-          <Title order={4}>Takeaways:</Title>
-          <Text>Using manually designed defensive prompts to protect the private prompts has limited effects. It is essential to develop a rigorous mechanism that can preserve the privacy of prompts.</Text>
-        </div>
-      </>
-    ),
-  },
+  // {
+  //   emoji: <IconPackage color="#1864AB" />,
+  //   value: "Leakage Ratio on Different Models",
+  //   description: (
+  //     <>
+  //       <div>
+  //         <TableLeakageLlama />
+  //         <p></p>
+  //         <Title order={4}>Takeaways:</Title>
+  //         <Text>For the same series of models, the larger model has a higher risk of prompt leakage, potentially because they are better at following the PLA instructions to output the private prompts.</Text>
+  //         {/* <Title order={4}>Takeaways:</Title> */}
+  //         {/* <p></p> */}
+  //       </div>
+  //     </>
+  //   ),
+  // },
+  // {
+  //   emoji: <IconShieldHalfFilled color="#1864AB" />,
+  //   value: "Effectiveness of Defensive Prompting",
+  //   description: (
+  //     <>
+  //       <div>
+  //         <TableLeakageGpt4 />
+  //         <p></p>
+  //         <Title order={4}>Takeaways:</Title>
+  //         <Text>Using manually designed defensive prompts to protect the private prompts has limited effects. It is essential to develop a rigorous mechanism that can preserve the privacy of prompts.</Text>
+  //       </div>
+  //     </>
+  //   ),
+  // },
 ];
 
 const rag = [
   {
-    emoji: <IconPackage color="#1864AB" />,
-    value: "Privacy Risks over Different Models",
+    emoji: <IconPackage color="#41B755" />,
+    value: "While agents usually involve external databases for information retrieval, the database performance is overlooked in several frameworks. Vector database is recommended.",
     description: (
       <>
         <div>
@@ -161,8 +154,8 @@ const rag = [
 
 const com_size = [
   {
-    emoji: <IconPackage color="#1864AB" />,
-    value: "Privacy Risks over Different Models",
+    emoji: <IconPackage color="#41B755" />,
+    value: "Inefficient communication architecture and package design lead to high communication overhead in the multi-agent setting.",
     description: (
       <>
         <div>
