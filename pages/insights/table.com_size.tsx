@@ -25,12 +25,12 @@ const TableComSize = () => {
   const topBorder = { borderTop: "2pt solid #CED4DA;" };
   const rightBorder = { borderRight: "2pt solid #CED4DA;" };
   const rows = [
-    { model: "From Global Agent", type: "Agent1", langchain: "0.81%", autogen: "0.87%", agentscope: "0.58%", crewai: "1.0%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
-    { model: "From Global Agent", type: "Agent2", langchain: "2.6%", autogen: "3.8%", agentscope: "2.5%", crewai: "2.3%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
-    { model: "From Global Agent", type: "Agent3", langchain: "0.30%", autogen: "0.34%", agentscope: "0.28%", crewai: "0.30%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
-    { model: "To Aggregation Agent", type: "Agent1", langchain: "10.4%", autogen: "4.3%", agentscope: "12.7%", crewai: "10.8%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
-    { model: "To Aggregation Agent", type: "Agent2", langchain: "19.2%", autogen: "7.7%", agentscope: "17.3%", crewai: "24.4%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
-    { model: "To Aggregation Agent", type: "Agent3", langchain: "6.7%", autogen: "3.2%", agentscope: "5.3%", crewai: "9.7%", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "From Global Agent", type: "Agent1", langchain: "165.07/0", autogen: "209.08/44.01", agentscope: "284.078/0", crewai: "514.962/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "From Global Agent", type: "Agent2", langchain: "165.07/0", autogen: "209.08/44.01", agentscope: "284.078/0", crewai: "483.740/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "From Global Agent", type: "Agent3", langchain: "165.07/0", autogen: "209.08/44.01", agentscope: "284.078/0", crewai: "619.516/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "To Aggregation Agent", type: "Agent1", langchain: "1983.02/3", autogen: "2066.04/52.4", agentscope: "1659.318/0", crewai: "2497.929/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "To Aggregation Agent", type: "Agent2", langchain: "2011.83/3", autogen: "2071.24/57.38", agentscope: "1511.311/0", crewai: "1754.701/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
+    { model: "To Aggregation Agent", type: "Agent3", langchain: "2072.98/3", autogen: "2156.04/66.81", agentscope: "1889.247/0", crewai: "2151.097/0", llamaindex: "1180.078/898", phidata: "354.508/0", pydantic:"96.022/0" },
   ];
 
   const elements = rows.map((row, index) => {
@@ -70,7 +70,7 @@ const TableComSize = () => {
         Get a better experience on larger screens
       </Text>
       <Table highlightOnHover withTableBorder captionSide="bottom" style={{ fontSize: "12px" }} withRowBorders={true}>
-        <Table.Caption>Table 2: DEA accuracy of different positions and types of data on ECHR. Llama-2 7B-FT is the Llama-2 7B model fine-tuned on ECHR with four epochs.</Table.Caption>
+        <Table.Caption>Table 2: Communication size between agents (Unit: Byte). We report the content size (e.g., the transferred outputs from the last agent) and overhead size (e.g., header), separated by /.</Table.Caption>
         <Table.Thead>
           <Table.Tr style={topBorder}>
             <Table.Th rowSpan={1} style={{ textAlign: "center" }}>

@@ -96,7 +96,7 @@ const tool_call = [
             <Image radius="md" src="figure4.jpg" alt="90fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
           </div>
           <Text ta="center" c="dimmed">
-            Figure 8. The leakage ratio (%) of samples that have FuzzRate over 90. <br /> Consistent with results measured by the average FuzzRate, ignore_print is the strongest attack on Llama-2-70b-chat.
+            Figure 4. The execution time per call for each tool.
           </Text>
           <p></p>
           <Title order={4}>Takeaways:</Title>
@@ -161,7 +161,7 @@ const rag = [
           <Title order={4}>Takeaways:</Title>
           <Text>
             While RAG workflows are increasingly adopted to enhance factual grounding, our benchmarking reveals that database performance, particularly during embedding and retrieval, is a critical yet frequently neglected factor. Figure 3(c). illustrates the variation in retrieval latency across frameworks, exposing significant performance disparities.<br />
-            {/* One notable example is AgentScope, which demonstrates high vectorization latency. This stems from its design: during the database setup phase, AgentScope invokes a large embedding model to compute dense vector representations. The latency of this embedding model, often implemented as a separate LLM call, substantially increases the overall vectorization time. Similarly, Phidata exhibits elevated vectorization latency due to its use of a two-step pipeline. First, its built-in <b>csv_tool<b/> loads documents row-by-row; then, it applies a SentenceTransformer model to compute embeddings. Our benchmark confirms that Phidata's \texttt{csv\_tool} itself is a relatively slow component, compounding the overall vectorization time. From our observation, vector databases such as Faiss are faster than other implementations.<br /> */}
+            One notable example is AgentScope, which demonstrates high vectorization latency. This stems from its design: during the database setup phase, AgentScope invokes a large embedding model to compute dense vector representations. The latency of this embedding model, often implemented as a separate LLM call, substantially increases the overall vectorization time. Similarly, Phidata exhibits elevated vectorization latency due to its use of a two-step pipeline. First, its built-in <span style={{ fontWeight: 'bold' }}>csv_tool</span> loads documents row-by-row; then, it applies a SentenceTransformer model to compute embeddings. Our benchmark confirms that Phidata's \texttt{csv\_tool} itself is a relatively slow component, compounding the overall vectorization time. From our observation, vector databases such as Faiss are faster than other implementations.<br />
             These observations highlight the need for more attention to retrieval pipeline design, especially in frameworks that aim to support real-time or large-scale RAG deployments. Optimization opportunities include batching document embeddings, using faster embedding models, minimizing redundant file reads, and caching frequent queries.
           </Text>
         </div>
@@ -172,7 +172,7 @@ const rag = [
 
 const com_size = [
   {
-    emoji: <IconPackage color="#2D595B" />,
+    emoji: <IconPackage color="#41B755" />,
     value: "Inefficient communication architecture and package design lead to high communication overhead in the multi-agent setting.",
     description: (
       <>
@@ -182,7 +182,7 @@ const com_size = [
           <Title order={4}>Takeaways:</Title>
           <Text>
             In multi-agent frameworks, communication between agents is often overlooked as a source of inefficiency. However, our analysis reveals large discrepancies in communication size across frameworks, as shown in Table 2. These differences arise not only from framework-specific message formats but also from architectural design choices, especially in multi-agent workflows like MoA.<br />
-            {/* Notably, frameworks such as CrewAI, which adopt a centralized communication pattern, exhibit significantly higher communication costs. In these designs, a central agent coordinates multiple sub-agents by sequentially delegating subtasks and collecting responses. For example, in CrewAI's MoA implementation, the center agent queries three sub-agents in sequence and aggregates their outputs. Each LLM invocation by the center agent accumulates prior messages in memory, causing the prompt size and the communication payload to grow linearly with the number of sub-agents. Phidata, on the other hand, incurs substantial communication overhead due to its design. In addition to the core message, it returns a duplicated <b>content<b/> field that mirrors the final message. This, combined with additional metadata fields, results in large overhead sizes.<br /> */}
+            Notably, frameworks such as CrewAI, which adopt a centralized communication pattern, exhibit significantly higher communication costs. In these designs, a central agent coordinates multiple sub-agents by sequentially delegating subtasks and collecting responses. For example, in CrewAI's MoA implementation, the center agent queries three sub-agents in sequence and aggregates their outputs. Each LLM invocation by the center agent accumulates prior messages in memory, causing the prompt size and the communication payload to grow linearly with the number of sub-agents. Phidata, on the other hand, incurs substantial communication overhead due to its design. In addition to the core message, it returns a duplicated <span style={{ fontWeight: 'bold' }}>content</span> field that mirrors the final message. This, combined with additional metadata fields, results in large overhead sizes.<br />
             These findings indicate that communication cost is not merely a function of task complexity but also of framework design. In large-scale deployments or bandwidth-constrained environments, excessive inter-agent message sizes, especially those driven by redundant content or sequential message accumulation, can significantly impact system performance and cost. Future agent frameworks should consider streamlined communication protocols, selective message summarization, or compressing intermediate results to reduce unnecessary transfer overhead.
           </Text>
         </div>
