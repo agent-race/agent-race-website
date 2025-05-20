@@ -1,0 +1,41 @@
+.pagetitle {
+    margin-top: var(--mantine-spacing-xl);
+    margin-bottom: var(--mantine-spacing-md);
+}
+
+.block_orange {
+    height: rem(56px);
+    background-color: #fdf3eb;
+}
+
+.block_red {
+    height: rem(56px);
+    background-color: #fdf5f5;
+}
+
+.block_green {
+    height: rem(56px);
+    background-color: #edf6f8;
+}
+
+.block_blue {
+    height: rem(56px);
+    background-color: #e7eefe;
+}
+
+.block_orange {
+    height: rem(56px);
+    background-color: #fdf3eb;
+}
+
+.block_red {
+    height: rem(56px);
+    background-color: #fdf5f5;
+}
+
+.bibtext {
+    font-family: var(--mantine-font-family-monospace);
+    font-size: var(--mantine-font-size-xs);
+    color: var(--_code-color);
+    white-space: pre-wrap;
+}
