@@ -12,6 +12,7 @@ import TablePrivacyRisksOverDifferentAttacks from "./table.privacy.different.att
 import TableLeakageGpt4 from "./table.leakage.gpt4";
 import TableLeakageUserData from "./table.leakage.user.data";
 import TableDeaDifferentPosition from "./table.dea.different.position";
+import TableComSize from "./table.com_size"
 
 const time_and_token = [
   {
@@ -92,7 +93,7 @@ const tool_call = [
       <>
         <div>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image radius="md" src="90_fuzz_rate.png" alt="90fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "500px" }} />
+            <Image radius="md" src="figure4.jpg" alt="90fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
           </div>
           <Text ta="center" c="dimmed">
             Figure 8. The leakage ratio (%) of samples that have FuzzRate over 90. <br /> Consistent with results measured by the average FuzzRate, ignore_print is the strongest attack on Llama-2-70b-chat.
@@ -149,8 +150,14 @@ const rag = [
     description: (
       <>
         <div>
-          <TableLeakageUserData />
-          <p></p>
+          {/* <TableLeakageUserData />
+          <p></p> */}
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 3. Token consumption and execution time per query of different frameworks.
+          </Text>
           <Title order={4}>Takeaways:</Title>
           <Text>
             While RAG workflows are increasingly adopted to enhance factual grounding, our benchmarking reveals that database performance, particularly during embedding and retrieval, is a critical yet frequently neglected factor. Figure 3(c). illustrates the variation in retrieval latency across frameworks, exposing significant performance disparities.<br />
@@ -170,7 +177,7 @@ const com_size = [
     description: (
       <>
         <div>
-          <TableLeakageUserData />
+          <TableComSize />
           <p></p>
           <Title order={4}>Takeaways:</Title>
           <Text>
@@ -227,8 +234,6 @@ export default function Benchmark() {
 
       <List mb="sm" type="ordered" c="dimmed">
         <List.Item>?</List.Item>
-        <List.Item>?</List.Item>
-        <List.Item>?</List.Item>
       </List>
 
       <Stack bg="var(--mantine-color-body)" gap="sm">
@@ -241,9 +246,8 @@ export default function Benchmark() {
         Tool Calling
       </Title>
 
-      <Text c="dimmed">We conduct a comprehensive evaluation of prompt privacy using different Prompt Leaking Attack (PLA) methods, models, and potential defenses. We focus on answering the following research questions:</Text>
+      <Text c="dimmed">We focus on answering the following research questions:</Text>
       <List mb="sm" type="ordered" c="dimmed">
-        <List.Item>?</List.Item>
         <List.Item>?</List.Item>
         <List.Item>?</List.Item>
       </List>
