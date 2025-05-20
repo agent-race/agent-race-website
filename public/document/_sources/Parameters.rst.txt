@@ -1,0 +1,118 @@
+API Documentation
+=================
+
+This section provides detailed information about the APIs available in the Large Language Model Privacy Benchmark (LLM-PBE) library, covering Models, Attacks, Defenses, and Data modules.
+
+Models
+------
+
+The Models module provides interfaces to interact with various large language models, both open-source and proprietary.
+
+ChatGPT
+^^^^^^^
+
+The `ChatGPT` class provides specific functionalities to interact with the ChatGPT model.
+
+**Parameters:**
+
+- **api_key** (str): API key for accessing ChatGPT. Required for proprietary models.
+- **model** (object): Model name, e.g., "gpt-3.5-turbo".
+- **max_attempts** (int): Maximum number of attempts to generate text in case of a failure.
+- **max_tokens** (int): Maximum number of tokens to generate.
+- **temperature** (float): Sampling temperature for text generation.
+
+**Methods:**
+
+- `query(text)`: Generates a response to the input text.
+
+
+TogetherAI
+^^^^^^^^^^
+
+The `Together` class provides specific functionalities to interact with models hosted at [TogetherAI](https://www.together.ai/).
+
+**Parameters:**
+
+- **api_key** (str): API key for accessing TogetherAI. Required for proprietary models.
+- **model** (str): Model name, e.g., "meta-llama/Llama-2-7b-hf".
+- **max_attempts** (int): Maximum number of attempts to generate text in case of a failure.
+- **max_tokens** (int): Maximum number of tokens to generate.
+- **temperature** (float): Sampling temperature for text generation.
+- **top_p** (float): The cumulative probability of the top tokens to consider at each step.
+- **top_k** (int): The maximum number of tokens to consider at each step.
+- **repetition_penalty** (float): The parameter for repetition penalty.
+
+**Methods:**
+
+- `query(text)`: Generates a response to the input text.
+
+
+Data
+----
+
+The Data module provides interfaces to interact with various datasets and data sources.
+
+Enron
+^^^^^
+
+The `Enron` class provides specific functionalities to interact with the Enron dataset.
+
+**Parameters:**
+
+- **sample_duplication_rate** (float): The rate of sample duplication.
+- **pseudonymize** (bool): True or False to pseudonymize the dataset.
+- **mode** (str): "scrubbed" or "undefended"  for the dataset.
+
+**Methods:**
+
+- `train_set()`: Return the training dataset.
+- `test_set()`: Return the test dataset.
+
+Echr
+^^^^
+
+The `Echr` class provides specific functionalities to interact with the Echr dataset.
+
+**Parameters:**
+
+- **sample_duplication_rate** (float): The rate of sample duplication.
+- **pseudonymize** (bool): True or False to pseudonymize the dataset.
+- **mode** (str): "scrubbed" or "undefended"  for the dataset.
+
+**Methods:**
+
+- `train_set()`: Return the training dataset.
+- `test_set()`: Return the test dataset.
+
+
+Attacks
+-------
+
+The Attacks module implements various techniques to test the privacy and security of large language models.
+
+DEA
+^^^
+
+The `DEA` class provides specific functionalities for data extraction attacks.
+
+**Parameters:**
+
+- **model** (object): The model class to attack.
+- **data** (object): The data class to attack.
+- **attack_method** (str): The attack method to use.
+
+
+**Methods:**
+
+- `execute(data, model)`: Generates a response to the input text.
+  
+
+Jailbreak
+^^^^^^^^^
+
+The `Jailbreak` class provides specific functionalities for data extraction attacks.
+
+
+**Methods:**
+
+- `execute(data, model)`: Return the responses of the model to the input text with jailbreaking prompts.

@@ -1,0 +1,27 @@
+.. LLM-PBE documentation master file.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to LLM-PBE's documentation!
+===================================
+
+**LLM-PBE** is a toolkit to assess the data privacy of LLMs. It has the following features
+
+- Comprehensive attack approaches (data extraction attacks, membership inference attacks, jailbreaking attacks, prompt injection attacks).
+- Practical defense approaches (differential privacy, machine unlearning, defensive prompting).
+- Multiple types of data (personally-identificable information, copywrited work, domain knowledge, prompts).
+- Accessing different LLMs (GPT-3.5/4, HuggingFace, TogetherAI, etc).
+
+.. image:: ./images/components.png
+   :align: center
+   :target: ./images/components.png
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+      Quick Start <Quick-Start>
+      APIs/Parameters <Parameters>
+      Examples <Examples>
+      Experiments <Experiments>
+
