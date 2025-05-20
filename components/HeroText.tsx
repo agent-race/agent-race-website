@@ -16,23 +16,23 @@ export function HeroText(scrollIntoView: any) {
 
       <div className={classes.inner}>
         <Title className={classes.title}>
-          LLM-PBE: Assessing {" "}
+        AgentRace: Benchmarking  {" "}
 
           <Text component="span" className={classes.highlight} inherit>
-          Data Privacy
+          Efficiency
           </Text>
-          <br />{" "}in Large Language Models
+          <br />{" "} in LLM Agent Frameworks
 
         </Title>
-        <Title order={3} className={classes.subtitle}>Published in VLDB 2024</Title>
-        <Anchor mb="sm" href="vldb2024_nomination_Qinbin.pdf">
+        {/* <Title order={3} className={classes.subtitle}>Published in VLDB 2024</Title> */}
+        {/* <Anchor mb="sm" href="vldb2024_nomination_Qinbin.pdf">
 
         <Badge variant="light" color="red" leftSection={<IconAward style={{width:rem(12), height:rem(12)}}></IconAward>}> Best Research Paper Nomination!</Badge>
-        </Anchor>
+        </Anchor> */}
 
         <Container p={0} size={600}>
           <Text size="lg" c="dimmed" className={classes.description}>
-          A toolkit crafted specifically for the systematic evaluation of data privacy risks in LLMs, incorporating diverse attack and defense strategies, and handling various data types and metrics.
+          The first benchmark specifically designed to systematically evaluate the efficiency of LLM agent frameworks across representative workloads. 
           <br/>
 
           </Text>
