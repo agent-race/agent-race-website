@@ -15,9 +15,9 @@ type Link = {
 const links = [
   { link: "/home", label: "Home", icon: <IconHome style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/insights", label: "Insights", icon: <IconFlagCode style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "/attackanddefense", label: "Attacks & Defenses", icon: <IconShieldHalfFilled style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "https://github.com/QinbinLi/LLM-PBE", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
+  // { link: "/attackanddefense", label: "Attacks & Defenses", icon: <IconShieldHalfFilled style={{ width: rem(14), height: rem(14) }} /> },
+  // { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
+  // { link: "https://github.com/QinbinLi/LLM-PBE", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
 ];
 
 export function Header() {
@@ -50,13 +50,13 @@ export function Header() {
 
   return (
     <header className={classes.header}>
-      <title>LLM-PBE: Assessing Data Privacy in Large Language Models</title>
-      <meta property='og:title' content="LLM-PBE: Assessing Data Privacy in Large Language Models" />
+      <title>AgentRace: Benchmarking Efficiency in LLM Agent Frameworks</title>
+      <meta property='og:title' content="AgentRace: Benchmarking Efficiency in LLM Agent Frameworks" />
       <meta property='og:description' content="A toolkit crafted specifically for the systematic evaluation of data privacy risks in LLMs, incorporating diverse attack and defense strategies, and handling various data types and metrics." />
       <Container size="md" className={classes.inner}>
         {/* <MantineLogo size={28} /> */}
-        <Text visibleFrom="xs">LLM-PBE: Assessing Data Privacy in Large Language Models</Text>
-        <Text hiddenFrom="xs">LLM-PBE</Text> {/* 再小的话，就只显示 LLM-PBE */}
+        <Text visibleFrom="xs">AgentRace: Benchmarking Efficiency in LLM Agent Frameworks</Text>
+        <Text hiddenFrom="xs">AgentRace</Text> {/* 再小的话，就只显示 LLM-PBE */}
         <Group gap={5} visibleFrom="md">
           {items}
         </Group>

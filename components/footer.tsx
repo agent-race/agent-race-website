@@ -8,13 +8,13 @@ export function Footer() {
       <Container className={classes.inner}>
         <div className={classes.logo}>
           {/* <MantineLogo size={30} /> */}
-          <p>LLM-PBE</p>
+          <p>AgentRace</p>
           <Text size="xs" c="dimmed" className={classes.description}>
-            A Toolkit to Assess the Privacy Risks of Large Language Models
+          The first benchmark specifically designed to systematically evaluate the efficiency of LLM agent frameworks across representative workloads.
           </Text>
         </div>
 
-        <div>
+        {/* <div>
           <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">
             <ActionIcon
               onClick={(event) => {
@@ -37,7 +37,7 @@ export function Footer() {
               <IconReportAnalytics style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
             </ActionIcon>
           </Group>
-        </div>
+        </div> */}
       </Container>
     </footer>
   );
