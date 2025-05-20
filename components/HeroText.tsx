@@ -3,16 +3,20 @@ import { Title, Text, Button, Container, Badge, rem, Anchor } from "@mantine/cor
 import { Dots } from "./Dots";
 import classes from "./HeroText.module.css";
 import { useRouter } from "next/router";
-import { IconAward, IconCertificate } from "@tabler/icons-react";
+import { IconAward, IconCertificate, IconBolt } from "@tabler/icons-react";
 
 export function HeroText(scrollIntoView: any) {
   const router = useRouter();
   return (
     <Container className={classes.wrapper} size={1400}>
-      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
+      {/* <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+      <Dots className={classes.dots} style={{ right: 0, top: 60 }} /> */}
+      <IconBolt className={classes.dots} style={{ left: 0, top: 0 }} />
+      <IconBolt className={classes.dots} style={{ left: 60, top: 0 }} />
+      <IconBolt className={classes.dots} style={{ left: 0, top: 140 }} />
+      <IconBolt className={classes.dots} style={{ right: 0, top: 60 }} />
 
       <div className={classes.inner}>
         <Title className={classes.title}>
