@@ -10,11 +10,11 @@ export function HeroText(scrollIntoView: any) {
   const router = useRouter();
   return (
     <Container className={classes.wrapper} size={1400}>
-      {/* <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
+      <Dots className={classes.dots} style={{ left: 0, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
-      <Dots className={classes.dots} style={{ right: 0, top: 60 }} /> */}
-      <IconBolt className={classes.dots} style={{ left: 0, top: 0 }} />
+      <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+      {/* <IconBolt className={classes.dots} style={{ left: 0, top: 0 }} />
       <IconBolt className={classes.dots} style={{ left: 60, top: 0 }} />
       <IconBolt className={classes.dots} style={{ left: 0, top: 140 }} />
       <IconBolt className={classes.dots} style={{ right: 0, top: 60 }} />
@@ -29,7 +29,7 @@ export function HeroText(scrollIntoView: any) {
       <IconBolt className={classes.dots} style={{ right: 80, top: 60 }} />
       <IconBolt className={classes.dots} style={{ right: 120, top: 90 }} />
       <IconBolt className={classes.dots} style={{ right: 40, top: 80 }} />
-      <IconBolt className={classes.dots} style={{ right: 50, top: 70 }} />
+      <IconBolt className={classes.dots} style={{ right: 50, top: 70 }} /> */}
       
 
       <div className={classes.inner}>
