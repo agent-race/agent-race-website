@@ -60,7 +60,7 @@ const TableAccuracy = () => {
         Get a better experience on larger screens
       </Text>
       <Table highlightOnHover withTableBorder captionSide="bottom" style={{ fontSize: "12px" }} withRowBorders={true}>
-        <Table.Caption>Table 2: Communication size between agents (Unit: Byte). We report the content size (e.g., the transferred outputs from the last agent) and overhead size (e.g., header), separated by /.</Table.Caption>
+        <Table.Caption>Table 3: The accuracy of each framework on each dataset</Table.Caption>
         <Table.Thead>
           <Table.Tr style={topBorder}>
             <Table.Th rowSpan={1} style={{ textAlign: "center" }}>

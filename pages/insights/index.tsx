@@ -92,8 +92,7 @@ const tool_call = [
     value: "Tool execution efficiency varies widely across frameworks, with search and figure-related tools introducing disproportionately high latency.",
     description: (
       <>
-        <div>
-          <figure>
+        <figure>
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
               <Image radius="md" src="figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
@@ -101,6 +100,7 @@ const tool_call = [
               Figure 4. The execution time per call for each tool.
             </Text>
           </figure>
+        <div>
           <p></p>
           <Title order={4}>Takeaways:</Title>
           <Text>
