@@ -23,7 +23,7 @@ const time_and_token = [
         {/* <TableModelSize /> */}
         <figure>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "500px" }} />
+            <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
           </div>
           <Text ta="center" c="dimmed">
             Figure 3. Token consumption and execution time per query of different frameworks.
@@ -93,7 +93,7 @@ const tool_call = [
       <>
         <div>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-            <Image radius="md" src="figure4.jpg" alt="90fuzz_rate" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            <Image radius="md" src="figure4.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
           </div>
           <Text ta="center" c="dimmed">
             Figure 4. The execution time per call for each tool.
