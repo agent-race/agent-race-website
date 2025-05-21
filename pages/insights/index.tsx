@@ -42,6 +42,30 @@ const time_and_token = [
       </>
     ),
   },
+  {
+    emoji: <IconDimensions color="#41B755" />,
+    value: "Token consumption may vary across frameworks even when executing the same workflow, owing to differences in implementation strategies.",
+    description: (
+      <>
+        {/* <TableModelSize /> */}
+        {/* <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 3. Token consumption and execution time per query of different frameworks.
+          </Text>
+        </figure> */}
+        <div>
+          <Title order={4}>Takeaways:</Title>
+          <Text>
+            For example, in the CrewAI framework, MoA is centrally managed by a global agent, which also plays the role of aggregation agent. The global agent receives the task and sequentially assigns it to sub-agents (e.g., agent1, agent2, agent3). Each sub-agent completes its part and returns the result to the global agent, which then decides the next step. After all agents have responded, the global agent summarizes the results and outputs the final answer.<br />
+            In this setup, the global agent calls the LLM multiple times—once after each sub-agent’s response. Because LLMs retain the full context of previous inputs and outputs in a single session, each new call includes all prior interactions. This leads to token accumulation, especially by the third or fourth step, where the prompt becomes much longer. As a result, total token usage becomes higher than in frameworks with different coordination or memory strategies.This phenomenon will become more apparent in Scalability part as the number of sub agents increases.
+          </Text>
+        </div>
+      </>
+    ),
+  },
   // {
   //   emoji: <IconFeather />,
   //   value: "Effect of Data Characteristics",
