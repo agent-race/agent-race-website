@@ -10,6 +10,35 @@ export default function Leaderboard() {
   return (
     <Container>
       <Title order={1} className={css.pagetitle}>
+        LangChiain
+      </Title>
+
+      <Title order={1} className={css.pagetitle}>
+        AutoGen
+      </Title>
+
+
+      <Title order={1} className={css.pagetitle}>
+        AgentScope
+      </Title>
+
+      <Title order={1} className={css.pagetitle}>
+        CrewAI
+      </Title>
+
+
+      <Title order={1} className={css.pagetitle}>
+        Llamaindex
+      </Title>
+
+      <Title order={1} className={css.pagetitle}>
+        Phidata
+      </Title>
+
+      <Title order={1} className={css.pagetitle}>
+        PydanticAI
+      </Title>
+      {/* <Title order={1} className={css.pagetitle}>
         Attacks
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
@@ -62,7 +91,7 @@ export default function Leaderboard() {
         <Text>
           Definitions are from <a href="https://arxiv.org/abs/2302.00539">Lukas et al., 2023</a>.
         </Text>
-      </Stack>
+      </Stack> */}
     </Container>
   );
 }
