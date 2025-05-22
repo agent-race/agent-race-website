@@ -16,8 +16,8 @@ const links = [
   { link: "/home", label: "Home", icon: <IconHome style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/insights", label: "Insights", icon: <IconFlagCode style={{ width: rem(14), height: rem(14) }} /> },
   // { link: "/attackanddefense", label: "Attacks & Defenses", icon: <IconShieldHalfFilled style={{ width: rem(14), height: rem(14) }} /> },
-  // { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
-  // { link: "https://github.com/QinbinLi/LLM-PBE", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
+  { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
+  { link: "https://github.com/agent-race", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
 ];
 
 export function Header() {

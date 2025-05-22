@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Text } from '@mantine/core';
 export default function Page() {
-    const target = '/LLM-PBE.pdf';
+    const target = '/AgentRace.pdf';
     const {push} = useRouter();
     useEffect(() => {
         push(target);
