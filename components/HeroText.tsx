@@ -54,7 +54,7 @@ export function HeroText(scrollIntoView: any) {
           <br/>
 
           </Text>
-          <Text size="xs" c="#ff8787" className={classes.description}>WARNING: This paper contains model outputs that may be considered offensive.</Text>
+          {/* <Text size="xs" c="#ff8787" className={classes.description}>WARNING: This paper contains model outputs that may be considered offensive.</Text> */}
         </Container>
 
         <div className={classes.controls}>
