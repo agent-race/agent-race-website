@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import classes from "./header.module.css";
 import { useRouter } from "next/router";
 import { IconBrandGithub, IconExternalLink, IconChartBar, IconFileLambda, IconFlagCode, IconHome, IconTrophy, IconShieldHalfFilled } from "@tabler/icons-react";
-import { AiFillFileZip } from "react-icons/ai";
+
 // define a type
 type Link = {
   link: string;
@@ -16,8 +16,7 @@ type Link = {
 const links = [
   { link: "/home", label: "Home", icon: <IconHome style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/insights", label: "Insights", icon: <IconFlagCode style={{ width: rem(14), height: rem(14) }} /> },
-  // { link: "/attackanddefense", label: "Appendix", icon: <AiFillFileZip style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "/attackanddefense", label: "Appendix", },
+  { link: "/attackanddefense", label: "Appendix", icon: <IconTrophy style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
   { link: "https://github.com/agent-race", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
 ];
