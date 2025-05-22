@@ -16,7 +16,8 @@ type Link = {
 const links = [
   { link: "/home", label: "Home", icon: <IconHome style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/insights", label: "Insights", icon: <IconFlagCode style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "/attackanddefense", label: "Appendix", icon: <AiFillFileZip style={{ width: rem(14), height: rem(14) }} /> },
+  // { link: "/attackanddefense", label: "Appendix", icon: <AiFillFileZip style={{ width: rem(14), height: rem(14) }} /> },
+  { link: "/attackanddefense", label: "Appendix", },
   { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
   { link: "https://github.com/agent-race", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
 ];

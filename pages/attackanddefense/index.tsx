@@ -10,32 +10,41 @@ export default function Leaderboard() {
   return (
     <Container>
       <Title order={1} className={css.pagetitle}>
+        Additional Results
+      </Title>
+
+
+      <Title order={1} className={css.pagetitle}>
+        Experiment Details
+      </Title>
+
+      <Title order={2} className={css.pagetitle}>
         LangChiain
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         AutoGen
       </Title>
 
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         AgentScope
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         CrewAI
       </Title>
 
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         Llamaindex
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         Phidata
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         PydanticAI
       </Title>
       {/* <Title order={1} className={css.pagetitle}>
