@@ -9,34 +9,37 @@ import TablePiiDefinitions from "../insights/table.pii.definitions";
 export default function Leaderboard() {
   return (
     <Container>
-
       <Title order={1} className={css.pagetitle}>
+        Bugs/Features
+      </Title>
+
+      <Title order={2} className={css.pagetitle}>
         LangChain
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         AutoGen
       </Title>
 
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         AgentScope
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         CrewAI
       </Title>
 
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         Llamaindex
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         Phidata
       </Title>
 
-      <Title order={1} className={css.pagetitle}>
+      <Title order={2} className={css.pagetitle}>
         PydanticAI
       </Title>
       {/* <Title order={1} className={css.pagetitle}>
