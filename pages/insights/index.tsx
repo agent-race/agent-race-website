@@ -14,7 +14,7 @@ import TableLeakageUserData from "./table.leakage.user.data";
 import TableDeaDifferentPosition from "./table.dea.different.position";
 import TableComSize from "./table.com_size"
 import TableAccuracy from "./table.framework_accuracy";
-import TableGaiaDetails from "./table.gaia_detail";
+import TableGaiaDetailedResults from "./table.gaia_detail";
 
 const time_and_token = [
   {
@@ -48,7 +48,7 @@ const time_and_token = [
     value: "Token consumption may vary across frameworks even when executing the same workflow, owing to differences in implementation strategies.",
     description: (
       <>
-        <TableGaiaDetails />
+        <TableGaiaDetailedResults />
         {/* <figure>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
