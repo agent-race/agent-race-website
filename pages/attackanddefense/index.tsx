@@ -39,7 +39,7 @@ export default function Leaderboard() {
         CrewAI
       </Title>
 
-      <Text>When our MOA invokes a large number of agents (>=12), CrewAI system occasionally fails to call all agents completely during execution as intended. For example, when we request 12 sub-agents to be activated, some queries may only trigger 9 or fewer agents.</Text>
+      {/* <Text>When our MOA invokes a large number of agents (>=12), CrewAI system occasionally fails to call all agents completely during execution as intended. For example, when we request 12 sub-agents to be activated, some queries may only trigger 9 or fewer agents.</Text> */}
 
 
       <Title order={2} className={css.pagetitle}>
