@@ -113,8 +113,11 @@ const TableGaiaDetailedResults = () => {
       </Table>
 
       <Table highlightOnHover withTableBorder withRowBorders style={{ fontSize: "12px" }}>
-        <Table.Caption>Table: Continued - Additional Tool Times</Table.Caption>
+        <Table.Caption>Table 4: GAIA Detailed Results</Table.Caption>
         <Table.Thead>
+          <Table.Tr>
+            <Table.Th colSpan={8}>Time</Table.Th>
+          </Table.Tr>
           <Table.Tr>
             <Table.Th>TXT Tool</Table.Th>
             <Table.Th>DOCX Tool</Table.Th>
