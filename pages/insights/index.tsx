@@ -16,6 +16,7 @@ import TableComSize from "./table.com_size"
 import TableAccuracy from "./table.framework_accuracy";
 import TableGaiaDetailedResults from "./table.gaia_detail";
 import TableHumanEvalDetailedResults from "./table.humaneval_detail";
+import AlpacaEvalTable from "./table.alpacaeval_detail";
 
 const time_and_token = [
   {
@@ -51,6 +52,7 @@ const time_and_token = [
       <>
         <TableGaiaDetailedResults />
         <TableHumanEvalDetailedResults />
+        <AlpacaEvalTable/>
         {/* <figure>
           <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />

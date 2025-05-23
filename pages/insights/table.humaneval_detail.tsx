@@ -74,6 +74,7 @@ const TableHumanEvalDetailedResults = () => {
         Table 5: HumanEval Detailed Results
       </Text>
       <Table highlightOnHover withTableBorder withRowBorders style={{ fontSize: "12px" }}>
+      <Table.Caption>Table 5: HumanEval Detailed Results</Table.Caption>
         <Table.Thead>
           <Table.Tr>
             <Table.Th rowSpan={2}>Framework</Table.Th>
