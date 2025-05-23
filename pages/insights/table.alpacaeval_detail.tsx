@@ -34,25 +34,30 @@ const AlpacaEvalTable = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-      <Text fw={700}>Table: AlpacaEval Detailed Results</Text>
+      {/* <Text fw={700}>Table: AlpacaEval Detailed Results</Text> */}
 
       <Table highlightOnHover withTableBorder captionSide="bottom" withRowBorders>
-        <Table.Caption>Token Statistics by Framework and Model</Table.Caption>
+        {/* <Table.Caption>Token Statistics by Framework and Model</Table.Caption> */}
         <Table.Thead>
           <Table.Tr>
-            <Table.Th rowSpan={2}>Framework</Table.Th>
+            <Table.Th rowSpan={3}>Framework</Table.Th>
+            <Table.Th colSpan={9}>Token</Table.Th>
+          </Table.Tr>
+          <Table.Tr>
             <Table.Th colSpan={3}>llama</Table.Th>
             <Table.Th colSpan={3}>qwen</Table.Th>
             <Table.Th colSpan={3}>deepseek</Table.Th>
           </Table.Tr>
           <Table.Tr>
-            {["prompt", "output", "total"].map((header, i) => (
-              <React.Fragment key={i}>
-                <Table.Th>{header}</Table.Th>
-                <Table.Th>{header}</Table.Th>
-                <Table.Th>{header}</Table.Th>
-              </React.Fragment>
-            ))[0]}
+            <Table.Th>prompt</Table.Th>
+            <Table.Th>output</Table.Th>
+            <Table.Th>total</Table.Th>
+            <Table.Th>prompt</Table.Th>
+            <Table.Th>output</Table.Th>
+            <Table.Th>total</Table.Th>
+            <Table.Th>prompt</Table.Th>
+            <Table.Th>output</Table.Th>
+            <Table.Th>total</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
@@ -63,11 +68,16 @@ const AlpacaEvalTable = () => {
       </Table>
 
       <Table highlightOnHover withTableBorder captionSide="bottom" withRowBorders>
-        <Table.Caption>Time and GPT Usage Details</Table.Caption>
+        {/* <Table.Caption>Time and GPT Usage Details</Table.Caption> */}
         <Table.Thead>
           <Table.Tr>
-            <Table.Th colSpan={3}>gpt</Table.Th>
+            <Table.Th colSpan={3}> </Table.Th>
             <Table.Th colSpan={5}>time</Table.Th>
+            <Table.Th> </Table.Th>
+          </Table.Tr>
+          <Table.Tr>
+            <Table.Th colSpan={3}>gpt</Table.Th>
+            <Table.Th colSpan={5}> </Table.Th>
             <Table.Th>agent1 (llama)</Table.Th>
           </Table.Tr>
           <Table.Tr>
@@ -90,8 +100,11 @@ const AlpacaEvalTable = () => {
       </Table>
 
       <Table highlightOnHover withTableBorder captionSide="bottom" withRowBorders>
-        <Table.Caption>Communication Size (content / wrapper bytes)</Table.Caption>
+        <Table.Caption>Table 7: AlpacaEval Detailed Results</Table.Caption>
         <Table.Thead>
+          <Table.Tr>
+            <Table.Th colSpan={5}>Communication Size (content/wrapper bytes)</Table.Th>
+          </Table.Tr>
           <Table.Tr>
             <Table.Th colSpan={2}>prompt to agent</Table.Th>
             <Table.Th colSpan={3}>agent to aggregator</Table.Th>
