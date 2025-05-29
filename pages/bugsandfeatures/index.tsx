@@ -142,6 +142,8 @@ def openai_audio_to_text(
 )`;
 
 
+const exampleCode2 = `from llama_index.retrievers.bm25 import BM25Retriever`
+const exampleCode3 = `from llama_index.legacy.retrievers.bm25_retriever import BM25Retriever`
 
 export default function Leaderboard() {
   return (
@@ -174,12 +176,20 @@ export default function Leaderboard() {
       <Title order={2} className={css.pagetitle}>
         AgentScope
       </Title>
+      <Stack bg="var(--mantine-color-body)" gap="sm">
         <Text>
         AgentScope’s image and audio processing tools internally rely on OpenAI models, causing their execution time to partially overlap with that of the LLM itself. This overlap can lead to inflated or inaccurate measurements of LLM processing time. Researchers and practitioners should be mindful of this issue when conducting time-based evaluations involving AgentScope.<br />
-        Meanwhile, AgentScope's vector database module, LlamaIndexKnowledge, is implemented based on the BM25Retriever from the llamaindex library. However, the original implementation relies on an outdated version of llamaindex, and recent updates to the library introduced structural changes that break compatibility with the original import statements.<br />
-        To ensure a consistent environment without modifying the framework’s built-in vector database logic, we resolved the issue by duplicating the LlamaIndexKnowledge module and updating the import paths to match the newer llamaindex version.
         </Text>
         <CodeHighlight code={exampleCode} language="python"  />
+        <Text>
+        Meanwhile, AgentScope's vector database module, LlamaIndexKnowledge, is implemented based on the BM25Retriever from the llamaindex library. However, the original implementation relies on an outdated version of llamaindex, and recent updates to the library introduced structural changes that break compatibility with the original import statements.<br />
+        </Text>
+        <CodeHighlight code={exampleCode2} language="python"  />
+        <Text>
+        To ensure a consistent environment without modifying the framework’s built-in vector database logic, we resolved the issue by duplicating the LlamaIndexKnowledge module and updating the import paths to match the newer llamaindex version.
+        </Text>
+        <CodeHighlight code={exampleCode3} language="python"  />
+      </Stack>  
 
       <Title order={2} className={css.pagetitle}>
         CrewAI
@@ -199,7 +209,10 @@ export default function Leaderboard() {
       <Title order={2} className={css.pagetitle}>
         Phidata
       </Title>
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Image src="phidata_feature.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
         <Text>It rarely invokes the code execution tool.</Text>
+      </Stack>
 
       <Title order={2} className={css.pagetitle}>
         PydanticAI
