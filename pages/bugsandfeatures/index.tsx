@@ -1,4 +1,6 @@
 import { Container, Image, rem, Stack, Text, Title, Code } from "@mantine/core";
+import { CodeHighlight } from '@mantine/code-highlight';
+import '@mantine/code-highlight/styles.css';
 import css from "../common.module.css";
 import Chart from "chart.js/auto";
 import MyLineChart from "./chart";
@@ -7,6 +9,139 @@ import ScatterPlot from "./scatter";
 // import { VictoryBoxPlotExample } from "./race";
 
 // Register ChartJS components using ChartJS.register
+
+const exampleCode = `def openai_image_to_text(
+    image_urls: Union[str, list[str]],
+    api_key: str,
+    prompt: str = "Describe the image",
+    model: Literal["gpt-4o", "gpt-4-turbo"] = "gpt-4o",
+) -> ServiceResponse:
+    """
+    Generate descriptive text for given image(s) using a specified model, and
+    return the generated text.
+
+    Args:
+        image_urls (\`Union[str, list[str]]\`):
+            The URL or list of URLs pointing to the images that need to be
+            described.
+        api_key (\`str\`):
+            The API key for the OpenAI API.
+        prompt (\`str\`, defaults to \`"Describe the image"\`):
+            The prompt that instructs the model on how to describe
+            the image(s).
+        model (\`Literal["gpt-4o", "gpt-4-turbo"]\`, defaults to \`"gpt-4o"\`):
+            The model to use for generating the text descriptions.
+
+    Returns:
+        \`ServiceResponse\`:
+            A dictionary with two variables: \`status\` and \`content\`.
+            If \`status\` is \`ServiceExecStatus.SUCCESS\`,
+            the \`content\` contains the generated text description(s).
+
+    Example:
+
+        .. code-block:: python
+
+            image_url = "https://example.com/image.jpg"
+            api_key = "YOUR_API_KEY"
+            print(openai_image_to_text(image_url, api_key))
+
+        > {
+        >     'status': 'SUCCESS',
+        >     'content': "A detailed description of the image..."
+        > }
+    """
+    openai_chat_wrapper = OpenAIChatWrapper(
+        config_name="image_to_text_service_call",
+        model_name=model,
+        api_key=api_key,
+    )
+    messages = Msg(
+        name="service_call",
+        role="user",
+        content=prompt,
+        url=image_urls,
+    )
+    openai_messages = openai_chat_wrapper.format(messages)
+    try:
+        response = openai_chat_wrapper(openai_messages)
+        return ServiceResponse(ServiceExecStatus.SUCCESS, response.text)
+    except Exception as e:
+        return ServiceResponse(ServiceExecStatus.ERROR, str(e))
+
+def openai_audio_to_text(
+    audio_file_url: str,
+    api_key: str,
+    language: str = "en",
+    temperature: float = 0.2,
+) -> ServiceResponse:
+    """
+    Convert an audio file to text using OpenAI's transcription service.
+
+    Args:
+        audio_file_url (\`str\`):
+            The file path or URL to the audio file that needs to be
+            transcribed.
+        api_key (\`str\`):
+            The API key for the OpenAI API.
+        language (\`str\`, defaults to \`"en"\`):
+            The language of the input audio. Supplying the input language in
+            [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+            format will improve accuracy and latency.
+        temperature (\`float\`, defaults to \`0.2\`):
+            The temperature for the transcription, which affects the
+            randomness of the output.
+
+    Returns:
+        \`ServiceResponse\`:
+            A dictionary with two variables: \`status\` and \`content\`.
+            If \`status\` is \`ServiceExecStatus.SUCCESS\`,
+            the \`content\` contains a dictionary with key 'transcription' and
+            value as the transcribed text.
+
+    Example:
+
+        .. code-block:: python
+
+            audio_file_url = "/path/to/audio.mp3"
+            api_key = "YOUR_API_KEY"
+            print(openai_audio_to_text(audio_file_url, api_key))
+
+        > {
+        >     'status': 'SUCCESS',
+        >     'content': {'transcription': 'This is the transcribed text from
+        the audio file.'}
+        > }
+    """
+    try:
+        import openai
+    except ImportError as e:
+        raise ImportError(
+            "The \`openai\` library is not installed. Please install it by "
+            "running \`pip install openai\`.",
+        ) from e
+
+    client = openai.OpenAI(api_key=api_key)
+    audio_file_url = os.path.abspath(audio_file_url)
+    with open(audio_file_url, "rb") as audio_file:
+        try:
+            transcription = client.audio.transcriptions.create(
+                model="whisper-1",
+                file=audio_file,
+                language=language,
+                temperature=temperature,
+            )
+            return ServiceResponse(
+                ServiceExecStatus.SUCCESS,
+                {"transcription": transcription.text},
+            )
+        except Exception as e:
+            return ServiceResponse(
+                ServiceExecStatus.ERROR,
+                f"Error: Failed to transcribe audio {str(e)}",
+)`;
+
+
 
 export default function Leaderboard() {
   return (
@@ -34,139 +169,7 @@ export default function Leaderboard() {
         AutoGen
       </Title>
         <Text>Due to the default system prompt being relatively long and containing irrelevant instructions, the RAG workflow may consume unnecessary tokens or produce unexpected errors (e.g., attempting to invoke non-existent tools). Therefore, it is necessary for users to customize the system prompt.</Text>
-        <Code block color="var(--mantine-color-blue-light)">
-        {`def openai_image_to_text(
-            image_urls: Union[str, list[str]],
-            api_key: str,
-            prompt: str = "Describe the image",
-            model: Literal["gpt-4o", "gpt-4-turbo"] = "gpt-4o",
-        ) -> ServiceResponse:
-            """
-            Generate descriptive text for given image(s) using a specified model, and
-            return the generated text.
-
-            Args:
-                image_urls (\`Union[str, list[str]]\`):
-                    The URL or list of URLs pointing to the images that need to be
-                    described.
-                api_key (\`str\`):
-                    The API key for the OpenAI API.
-                prompt (\`str\`, defaults to \`"Describe the image"\`):
-                    The prompt that instructs the model on how to describe
-                    the image(s).
-                model (\`Literal["gpt-4o", "gpt-4-turbo"]\`, defaults to \`"gpt-4o"\`):
-                    The model to use for generating the text descriptions.
-
-            Returns:
-                \`ServiceResponse\`:
-                    A dictionary with two variables: \`status\` and \`content\`.
-                    If \`status\` is \`ServiceExecStatus.SUCCESS\`,
-                    the \`content\` contains the generated text description(s).
-
-            Example:
-
-                .. code-block:: python
-
-                    image_url = "https://example.com/image.jpg"
-                    api_key = "YOUR_API_KEY"
-                    print(openai_image_to_text(image_url, api_key))
-
-                > {
-                >     'status': 'SUCCESS',
-                >     'content': "A detailed description of the image..."
-                > }
-            """
-            openai_chat_wrapper = OpenAIChatWrapper(
-                config_name="image_to_text_service_call",
-                model_name=model,
-                api_key=api_key,
-            )
-            messages = Msg(
-                name="service_call",
-                role="user",
-                content=prompt,
-                url=image_urls,
-            )
-            openai_messages = openai_chat_wrapper.format(messages)
-            try:
-                response = openai_chat_wrapper(openai_messages)
-                return ServiceResponse(ServiceExecStatus.SUCCESS, response.text)
-            except Exception as e:
-                return ServiceResponse(ServiceExecStatus.ERROR, str(e))
-
-        def openai_audio_to_text(
-            audio_file_url: str,
-            api_key: str,
-            language: str = "en",
-            temperature: float = 0.2,
-        ) -> ServiceResponse:
-            """
-            Convert an audio file to text using OpenAI's transcription service.
-
-            Args:
-                audio_file_url (\`str\`):
-                    The file path or URL to the audio file that needs to be
-                    transcribed.
-                api_key (\`str\`):
-                    The API key for the OpenAI API.
-                language (\`str\`, defaults to \`"en"\`):
-                    The language of the input audio. Supplying the input language in
-                    [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
-                    format will improve accuracy and latency.
-                temperature (\`float\`, defaults to \`0.2\`):
-                    The temperature for the transcription, which affects the
-                    randomness of the output.
-
-            Returns:
-                \`ServiceResponse\`:
-                    A dictionary with two variables: \`status\` and \`content\`.
-                    If \`status\` is \`ServiceExecStatus.SUCCESS\`,
-                    the \`content\` contains a dictionary with key 'transcription' and
-                    value as the transcribed text.
-
-            Example:
-
-                .. code-block:: python
-
-                    audio_file_url = "/path/to/audio.mp3"
-                    api_key = "YOUR_API_KEY"
-                    print(openai_audio_to_text(audio_file_url, api_key))
-
-                > {
-                >     'status': 'SUCCESS',
-                >     'content': {'transcription': 'This is the transcribed text from
-                the audio file.'}
-                > }
-            """
-            try:
-                import openai
-            except ImportError as e:
-                raise ImportError(
-                    "The \`openai\` library is not installed. Please install it by "
-                    "running \`pip install openai\`.",
-                ) from e
-
-            client = openai.OpenAI(api_key=api_key)
-            audio_file_url = os.path.abspath(audio_file_url)
-            with open(audio_file_url, "rb") as audio_file:
-                try:
-                    transcription = client.audio.transcriptions.create(
-                        model="whisper-1",
-                        file=audio_file,
-                        language=language,
-                        temperature=temperature,
-                    )
-                    return ServiceResponse(
-                        ServiceExecStatus.SUCCESS,
-                        {"transcription": transcription.text},
-                    )
-                except Exception as e:
-                    return ServiceResponse(
-                        ServiceExecStatus.ERROR,
-                        f"Error: Failed to transcribe audio {str(e)}",
-        )`}
-
-        </Code>
+        
 
       <Title order={2} className={css.pagetitle}>
         AgentScope
@@ -176,6 +179,7 @@ export default function Leaderboard() {
         Meanwhile, AgentScope's vector database module, LlamaIndexKnowledge, is implemented based on the BM25Retriever from the llamaindex library. However, the original implementation relies on an outdated version of llamaindex, and recent updates to the library introduced structural changes that break compatibility with the original import statements.<br />
         To ensure a consistent environment without modifying the framework’s built-in vector database logic, we resolved the issue by duplicating the LlamaIndexKnowledge module and updating the import paths to match the newer llamaindex version.
         </Text>
+        <CodeHighlight code={exampleCode} language="python"  />
 
       <Title order={2} className={css.pagetitle}>
         CrewAI
@@ -187,7 +191,10 @@ export default function Leaderboard() {
       <Title order={2} className={css.pagetitle}>
         Llamaindex
       </Title>
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Image src="llamaindex_bug.jpg" alt="radar" radius="md" h="auto" w="75%" fit="contain" mx="auto"/>
         <Text>LlamaIndex frequently fails to invoke tools correctly, primarily due to the lack of prompt constraints and insufficient post-processing checks on LLM outputs. Without explicit guidance and validation mechanisms, the LLM often produces outputs that do not conform to the expected dictionary format, resulting in tool invocation failures.</Text>
+      </Stack>
 
       <Title order={2} className={css.pagetitle}>
         Phidata
@@ -197,10 +204,13 @@ export default function Leaderboard() {
       <Title order={2} className={css.pagetitle}>
         PydanticAI
       </Title>
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Image src="radar_tools.jpg" alt="radar" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
         <Text>
           Within the Pydantic ReAct framework, we observed multiple simultaneous invocations of the same tool, which may lead to inefficiencies. Additionally, similar to Phidata, the code execution tool was seldom triggered.<br />
           Furthermore, the MoA implementation in the Pydantic framework is tool-based, and not all three models are invoked for every query.
         </Text>
+      </Stack>
       {/* <Title order={1} className={css.pagetitle}>
         Attacks
       </Title>
