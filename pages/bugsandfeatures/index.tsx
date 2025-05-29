@@ -1,14 +1,18 @@
-import { Container, Image, rem, Stack, Text, Title } from "@mantine/core";
+import { Container, Image, rem, Stack, Text, Title, Code } from "@mantine/core";
 import css from "../common.module.css";
 import Chart from "chart.js/auto";
 import MyLineChart from "./chart";
 import TablePiiDefinitions from "../insights/table.pii.definitions";
+import ScatterPlot from "./scatter";
+import { VictoryBoxPlotExample } from "./race";
 
 // Register ChartJS components using ChartJS.register
 
 export default function Leaderboard() {
   return (
     <Container>
+      {/* <ScatterPlot /> */}
+      {/* <VictoryBoxPlotExample /> */}
       <Title order={1} className={css.pagetitle}>
         Bugs/Features
       </Title>
@@ -16,15 +20,153 @@ export default function Leaderboard() {
       <Title order={2} className={css.pagetitle}>
         LangChain
       </Title>
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Image src="langchain_abs.png" alt="defenses" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
         <Text>LangChain's high level of abstraction and encapsulation posed challenges in measuring specific metrics during our experiments.<br />
+        </Text>
+        <Image src="langchain_bug.png" alt="defenses" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+        <Text>
         Additionally, LangChain occasionally terminated processes prematurely after reading files from the GAIA dataset, returning the file content directly rather than proceeding with the expected operations.
         </Text>
+      </Stack>
 
       <Title order={2} className={css.pagetitle}>
         AutoGen
       </Title>
         <Text>Due to the default system prompt being relatively long and containing irrelevant instructions, the RAG workflow may consume unnecessary tokens or produce unexpected errors (e.g., attempting to invoke non-existent tools). Therefore, it is necessary for users to customize the system prompt.</Text>
+        <Code block>
+        {`def openai_image_to_text(
+            image_urls: Union[str, list[str]],
+            api_key: str,
+            prompt: str = "Describe the image",
+            model: Literal["gpt-4o", "gpt-4-turbo"] = "gpt-4o",
+        ) -> ServiceResponse:
+            """
+            Generate descriptive text for given image(s) using a specified model, and
+            return the generated text.
 
+            Args:
+                image_urls (\`Union[str, list[str]]\`):
+                    The URL or list of URLs pointing to the images that need to be
+                    described.
+                api_key (\`str\`):
+                    The API key for the OpenAI API.
+                prompt (\`str\`, defaults to \`"Describe the image"\`):
+                    The prompt that instructs the model on how to describe
+                    the image(s).
+                model (\`Literal["gpt-4o", "gpt-4-turbo"]\`, defaults to \`"gpt-4o"\`):
+                    The model to use for generating the text descriptions.
+
+            Returns:
+                \`ServiceResponse\`:
+                    A dictionary with two variables: \`status\` and \`content\`.
+                    If \`status\` is \`ServiceExecStatus.SUCCESS\`,
+                    the \`content\` contains the generated text description(s).
+
+            Example:
+
+                .. code-block:: python
+
+                    image_url = "https://example.com/image.jpg"
+                    api_key = "YOUR_API_KEY"
+                    print(openai_image_to_text(image_url, api_key))
+
+                > {
+                >     'status': 'SUCCESS',
+                >     'content': "A detailed description of the image..."
+                > }
+            """
+            openai_chat_wrapper = OpenAIChatWrapper(
+                config_name="image_to_text_service_call",
+                model_name=model,
+                api_key=api_key,
+            )
+            messages = Msg(
+                name="service_call",
+                role="user",
+                content=prompt,
+                url=image_urls,
+            )
+            openai_messages = openai_chat_wrapper.format(messages)
+            try:
+                response = openai_chat_wrapper(openai_messages)
+                return ServiceResponse(ServiceExecStatus.SUCCESS, response.text)
+            except Exception as e:
+                return ServiceResponse(ServiceExecStatus.ERROR, str(e))
+
+        def openai_audio_to_text(
+            audio_file_url: str,
+            api_key: str,
+            language: str = "en",
+            temperature: float = 0.2,
+        ) -> ServiceResponse:
+            """
+            Convert an audio file to text using OpenAI's transcription service.
+
+            Args:
+                audio_file_url (\`str\`):
+                    The file path or URL to the audio file that needs to be
+                    transcribed.
+                api_key (\`str\`):
+                    The API key for the OpenAI API.
+                language (\`str\`, defaults to \`"en"\`):
+                    The language of the input audio. Supplying the input language in
+                    [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+                    format will improve accuracy and latency.
+                temperature (\`float\`, defaults to \`0.2\`):
+                    The temperature for the transcription, which affects the
+                    randomness of the output.
+
+            Returns:
+                \`ServiceResponse\`:
+                    A dictionary with two variables: \`status\` and \`content\`.
+                    If \`status\` is \`ServiceExecStatus.SUCCESS\`,
+                    the \`content\` contains a dictionary with key 'transcription' and
+                    value as the transcribed text.
+
+            Example:
+
+                .. code-block:: python
+
+                    audio_file_url = "/path/to/audio.mp3"
+                    api_key = "YOUR_API_KEY"
+                    print(openai_audio_to_text(audio_file_url, api_key))
+
+                > {
+                >     'status': 'SUCCESS',
+                >     'content': {'transcription': 'This is the transcribed text from
+                the audio file.'}
+                > }
+            """
+            try:
+                import openai
+            except ImportError as e:
+                raise ImportError(
+                    "The \`openai\` library is not installed. Please install it by "
+                    "running \`pip install openai\`.",
+                ) from e
+
+            client = openai.OpenAI(api_key=api_key)
+            audio_file_url = os.path.abspath(audio_file_url)
+            with open(audio_file_url, "rb") as audio_file:
+                try:
+                    transcription = client.audio.transcriptions.create(
+                        model="whisper-1",
+                        file=audio_file,
+                        language=language,
+                        temperature=temperature,
+                    )
+                    return ServiceResponse(
+                        ServiceExecStatus.SUCCESS,
+                        {"transcription": transcription.text},
+                    )
+                except Exception as e:
+                    return ServiceResponse(
+                        ServiceExecStatus.ERROR,
+                        f"Error: Failed to transcribe audio {str(e)}",
+        )`}
+
+        </Code>
 
       <Title order={2} className={css.pagetitle}>
         AgentScope
