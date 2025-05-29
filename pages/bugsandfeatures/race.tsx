@@ -7,11 +7,11 @@ export function VictoryBoxPlotExample() {
   const commonLabelStyle = {
     fontSize: 8,
     fontFamily: theme.fontFamily,
-    fill: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    // fill: colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 800, margin: '0 auto' }}>
+    <Box style={{ width: '100%', maxWidth: 800, margin: '0 auto' }}>
       <VictoryChart domainPadding={10}>
         <VictoryAxis
           style={{
@@ -44,8 +44,8 @@ export function VictoryBoxPlotExample() {
             q3: { fill: "tomato" },
             median: { stroke: "white", strokeWidth: 1 }
           }}
-          labelStyle={commonLabelStyle}
-          outlierComponent={<div />}
+          // labelStyle={commonLabelStyle}
+          // outlierComponent={<div />}
         />
       </VictoryChart>
     </Box>

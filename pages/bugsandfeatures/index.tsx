@@ -34,7 +34,7 @@ export default function Leaderboard() {
         AutoGen
       </Title>
         <Text>Due to the default system prompt being relatively long and containing irrelevant instructions, the RAG workflow may consume unnecessary tokens or produce unexpected errors (e.g., attempting to invoke non-existent tools). Therefore, it is necessary for users to customize the system prompt.</Text>
-        <Code block>
+        <Code block color="var(--mantine-color-blue-light)">
         {`def openai_image_to_text(
             image_urls: Union[str, list[str]],
             api_key: str,
