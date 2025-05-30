@@ -1,6 +1,6 @@
 import { Container, Stack, Title, Accordion, Image, Text, Table, Code, List, Anchor } from "@mantine/core";
 import css from "../common.module.css";
-import { IconAlt, IconClock24, IconComponents, IconDimensions, IconFeather, IconFileDescription, IconFileSettings, IconGhost, IconLockSquare, IconPackage, IconRulerMeasure, IconScale, IconSettings, IconShieldHalfFilled, IconShieldLock, IconTank, IconTemperature } from "@tabler/icons-react";
+import { IconAlt, IconClock24, IconCornerUpRightDouble,IconComponents, IconDimensions, IconDatabase, IconFileDescription, IconFileSettings, IconGhost, IconLockSquare, IconPackage, IconRulerMeasure, IconScale, IconSettings, IconShieldHalfFilled, IconShieldLock, IconTool, IconTemperature, IconClock } from "@tabler/icons-react";
 import TableModelSize from "./table.model.size";
 import TableMiaEchr from "./table.mia.echr";
 import TableMiaEnron from "./table.mia.enron";
@@ -20,7 +20,7 @@ import AlpacaEvalTable from "./table.alpacaeval_detail";
 
 const time_and_token = [
   {
-    emoji: <IconDimensions color="#41B755" />,
+    emoji: <IconClock color="#41B755" />,
     value: "LLM inference usually dominates runtime across all agent frameworks, and inefficient prompt engineering, such as appending full histories and using verbose prompts, exacerbates both latency and cost.",
     description: (
       <>
@@ -76,7 +76,7 @@ const time_and_token = [
     ),
   },
   {
-    emoji: <IconDimensions color="#41B755" />,
+    emoji: <IconCornerUpRightDouble color="#41B755" />,
     value: "Parallel invocation reduces overall runtime.",
     description: (
       <>
@@ -144,7 +144,7 @@ const time_and_token = [
 
 const tool_call = [
   {
-    emoji: <IconTank color="#41B755" />,
+    emoji: <IconTool color="#41B755" />,
     value: "Tool execution efficiency varies widely across frameworks, with search and figure-related tools introducing disproportionately high latency.",
     description: (
       <>
@@ -204,7 +204,7 @@ const tool_call = [
 
 const rag = [
   {
-    emoji: <IconPackage color="#41B755" />,
+    emoji: <IconDatabase color="#41B755" />,
     value: "While agents usually involve external databases for information retrieval, the database performance is overlooked in several frameworks. Vector database is recommended.",
     description: (
       <>
@@ -253,7 +253,7 @@ const com_size = [
 
 const accuracy = [
   {
-    emoji: <IconPackage color="#41B755" />,
+    emoji: <IconComponents color="#41B755" />,
     value: "The complete absence of output constraints in LLMs may lead to tool invocation failures, whereas excessively strict output validation can incur substantial token overhead and decrease the response success rate.",
     description: (
       <>
