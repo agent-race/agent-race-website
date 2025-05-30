@@ -211,7 +211,7 @@ export default function Leaderboard() {
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Image src="phidata_feature.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
-        <Text>It rarely invokes the code execution tool.</Text>
+        <Text>In the ReAct workflow, Phidata passes the available tools to the LLM via the "tools" field. Unlike Llamaindex, which emphasizes the functionality and usage of tools in the system prompt, Phidata rarely invokes the code execution tool when processing queries from humaneval.</Text>
       </Stack>
 
       <Title order={2} className={css.pagetitle}>
