@@ -219,6 +219,7 @@ export default function Leaderboard() {
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Image src="radar_tools.jpg" alt="radar" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
+        <Image src="pydantic_bug2.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
         <Text>
           Within the Pydantic ReAct framework, we observed multiple simultaneous invocations of the same tool, which may lead to inefficiencies. Additionally, similar to Phidata, the code execution tool was seldom triggered.<br />
           Furthermore, the MoA implementation in the Pydantic framework is tool-based, and not all three models are invoked for every query.
