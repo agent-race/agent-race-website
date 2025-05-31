@@ -153,6 +153,8 @@ export default function Leaderboard() {
       <Title order={1} className={css.pagetitle}>
         Bugs/Features
       </Title>
+      <Text>This page summarizes the observed abnormal behaviours of studied frameworks during our experiments.<br />
+      </Text>
 
       <Title order={2} className={css.pagetitle}>
         LangChain
