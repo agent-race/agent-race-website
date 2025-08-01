@@ -17,6 +17,12 @@ import TableAccuracy from "./table.framework_accuracy";
 import TableGaiaDetailedResults from "./table.gaia_detail";
 import TableHumanEvalDetailedResults from "./table.humaneval_detail";
 import AlpacaEvalTable from "./table.alpacaeval_detail";
+import FailureNum from "./table.failure_num";
+import MemAcc from "./table.mem_acc";
+import MoaSeq from "./table.moa_sequence";
+import TableIrrelevantTime from "./table.irrelevant_time";
+import IrrelevantFailure from "./table.irrelevant_failure";
+import TableIrrelevantToken from "./table.irrelevant_token";
 
 const time_and_token = [
   {
@@ -39,9 +45,28 @@ const time_and_token = [
             Figure 3. presents the breakdown of agent execution time across four benchmark scenarios. Across all settings, LLM inference consistently dominates runtime. Even in the GAIA scenario, which is explicitly designed to be tool-intensive and involves frequent calls to external APIs, LLM inference accounts for more than 85% of the total execution time in most frameworks. In simpler workflows such as HumanEval and AlpacaEval, the proportion exceeds 95%. This highlights that LLM inference, due to its computational demands and frequent invocation, remains the primary bottleneck in agent execution, regardless of the complexity or type of task.<br />
             Moreover, we observe that the cost of LLM inference is further exacerbated by large variations in token efficiency across frameworks. There is a strong positive correlation between LLM inference time and token consumption. Some frameworks, notably CrewAI, LlamaIndex, and AgentScope, consistently exhibit higher token usage, leading to significantly prolonged inference times and increased resource consumption. We identify two main causes of token inefficiency: <span style={{ fontWeight: 'bold' }}>appending unnecessary history to prompts</span> and <span style={{ fontWeight: 'bold' }}>using verbose prompts</span>.<br />
             We observe that CrewAI and AgentScope elevated token usage arises from their design choice. In their implementation, the LLM stores all intermediate inputs and outputs as memory and appends this memory to each new prompt. As a result, the prompt length—and thus token count—grows with every step of reasoning. <br />
-            In the ReAct workflow, LlamaIndex consumes a significant amount of prompts, primarily due to the observation portion returned to the LLM after tool invocation. Additionally, for queries that fail to execute successfully, the number of reasoning + action iterations increases, leading to a corresponding growth in the observation-related prompts.
+            In the ReAct workflow, LlamaIndex consumes a significant amount of prompts, primarily due to the observation portion returned to the LLM after tool invocation. Additionally, for queries that fail to execute successfully, the number of reasoning + action iterations increases, leading to a corresponding growth in the observation-related prompts. <br />
+            Our experiments in Section 5.2 reveal a strong correlation between prompt token counts and execution time across frameworks (see Figure 3). This is primarily due to two factors: 1) An increased number of LLM calls leads to memory accumulation, resulting in prompt token growth; 2) Since LLM calls dominate the runtime cost, some frameworks incur more LLM calls, and thus result in longer execution time. <br />
+            Based on the findings in Section 5.2, we conducted deeper analyses showing that CrewAI and AgentScope have significantly higher average LLM call frequencies per query (5.33 and 4.78) compared to LlamaIndex, PydanticAI, and Phidata (2.76, 2.79, and 3.38), which explains their larger token usage and longer runtimes due to more frequent LLM calls and resulting memory accumulation. <br /><br/>
+          </Text>
+          <FailureNum/>
+        </div>
+        <div>
+          <Text> <br/>
+          ● <span style={{ fontWeight: 'bold' }}>AgentScope and CrewAI frequently use the Web tool for precise results</span>, leading to higher token usage due to long text outputs. In our tests, they called the Web tool 494 and 608 times, far more than other frameworks (max 102).<br />
+          ● <span style={{ fontWeight: 'bold' }}>AgentScope often writes and executes code to solve problems</span>, which requires returning large code blocks, increasing token usage. It used the code execution tool 122 times, while others used it no more than 21 times. <br/> <br/>
+          AgentScope stands out by retaining memory across queries, continuously appending prior interactions to the prompt. Unlike earlier tests that re-instantiated the Agent to avoid memory buildup, running 9 GAIA queries without resets confirmed clear memory accumulation. <br />
+          </Text>
+          <MemAcc/>
+          <Text> <br />
+          In the MoA study, we observed that some frameworks invoke LLMs sequentially. We explored the impact of changing the order of LLM calls on token consumption. there are some results: <br /><br />
+          </Text>
+          <MoaSeq/>
+          <Text>
+          Note: GLM, Qwen, and DS refer to GLM-Z1-Rumination-32B-0414, Qwen2.5-7B-Instruct, and DeepSeek-V3, respectively.
           </Text>
         </div>
+
       </>
     ),
   },
@@ -170,22 +195,34 @@ const tool_call = [
       </>
     ),
   },
-  // {
-  //   emoji: <IconPackage color="#1864AB" />,
-  //   value: "Leakage Ratio on Different Models",
-  //   description: (
-  //     <>
-  //       <div>
-  //         <TableLeakageLlama />
-  //         <p></p>
-  //         <Title order={4}>Takeaways:</Title>
-  //         <Text>For the same series of models, the larger model has a higher risk of prompt leakage, potentially because they are better at following the PLA instructions to output the private prompts.</Text>
-  //         {/* <Title order={4}>Takeaways:</Title> */}
-  //         {/* <p></p> */}
-  //       </div>
-  //     </>
-  //   ),
-  // },
+  {
+    emoji: <IconTool color="#41B755" />,
+    value: "While increasing the number of tools has minimal effect on execution time, it does have a noticeable impact on LLM token usage.",
+    description: (
+      <>
+        <div>
+          {/* <TableLeakageLlama /> */}
+          <p></p>
+          <Title order={4}>Takeaways:</Title>
+          <Text>We evaluated the impact of scaling the number of tools by adding 10 and 20 additional tools—unrelated to the GAIA task (e.g., simple utilities such as addition or matrix multiplication)—to different frameworks under the same experimental setup. The results are as follows:</Text>
+          <TableIrrelevantTime />
+          <TableIrrelevantToken />
+          <Text>
+            The reason for the cliff-like drop in the number of tokens for the LlamaIndex framework is that, as the number of tools increases, the model fails to accurately select the appropriate tool for execution. For example, under the setting with no additional tools, the web tool was successfully called 172 times, while under the settings with 10 and 20 additional tools, it was only called 136 and 132 times, respectively. As a result of the model’s inability to select the correct tool, the depth of ReAct execution significantly decreases, ultimately leading to a dramatic drop in token usage. 
+          </Text>
+          
+          <Text>
+            <br />
+            In addition, we observed that as the number of tools increases, some test samples encountered execution failures due to the LLM exceeding its context window. The detailed experimental results are shown in the table below: <br /><br />
+          </Text>
+          <IrrelevantFailure />
+
+          {/* <Title order={4}>Takeaways:</Title> */}
+          {/* <p></p> */}
+        </div>
+      </>
+    ),
+  },
   // {
   //   emoji: <IconShieldHalfFilled color="#1864AB" />,
   //   value: "Effectiveness of Defensive Prompting",
