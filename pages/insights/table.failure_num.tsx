@@ -77,22 +77,22 @@ const FailureNum = () => {
         {/* <Table.Caption>Table: The accuracy of each framework on each dataset</Table.Caption> */}
         <Table.Thead>
           <Table.Tr style={topBorder}>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
                LLM Call Frequency
             </Table.Th>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
               AgentScope
             </Table.Th>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
               CrewAI
             </Table.Th>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
               LlamaIndex
             </Table.Th>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
               PydanticAI
             </Table.Th>
-            <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
+            <Table.Th rowSpan={1} style={{ textAlign: "left" }}>
               Phidata
             </Table.Th>
             {/* <Table.Th rowSpan={1} style={{ textAlign: "center" }}>
