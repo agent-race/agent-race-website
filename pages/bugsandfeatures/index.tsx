@@ -4,7 +4,6 @@ import '@mantine/code-highlight/styles.css';
 import css from "../common.module.css";
 import Chart from "chart.js/auto";
 import MyLineChart from "./chart";
-import TablePiiDefinitions from "../insights/table.pii.definitions";
 import ScatterPlot from "./scatter";
 // import { VictoryBoxPlotExample } from "./race";
 
