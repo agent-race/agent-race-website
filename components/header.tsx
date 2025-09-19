@@ -18,7 +18,7 @@ const links = [
   { link: "/insights", label: "Insights", icon: <IconFlagCode style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/bugsandfeatures", label: "Bugs/Features", icon: <IconTrophy style={{ width: rem(14), height: rem(14) }} /> },
   { link: "/paper", label: "Paper", icon: <IconFileLambda style={{ width: rem(14), height: rem(14) }} /> },
-  { link: "https://github.com/agent-race/AgentRace", label: "GitHub", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
+  { link: "https://anonymous.4open.science/r/AgentRace-922A", label: "Code", icon: <IconBrandGithub style={{ width: rem(14), height: rem(14) }} /> },
 ];
 
 export function Header() {
