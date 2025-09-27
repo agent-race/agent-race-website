@@ -5,6 +5,7 @@ const CrewAIMemoryWindowTable = () => {
   const headers = ["1", "25", "35", "Default"];
   const rows = [
     ["Accuracy", 0.236, 0.248, 0.242, 0.218],
+    ["Average Token Comsumption per Query", 79767.8, 85032.61, 87013.70, 95426.57],
   ];
 
   return (

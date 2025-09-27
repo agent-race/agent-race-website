@@ -461,11 +461,11 @@ const tradeoff = [
           <p></p>
           <Title order={4}>Key Observations</Title>
           <Text>
-          To investigate whether the built-in historical memory of the CrewAI framework affects accuracy, we compared four settings on the GAIA dataset: (i) using 1 memory window size, (ii) using 25 memory window size, (iii) using 35 memory window size, and (iv) using default memory window size. Results are shown in Table 6.
+          To investigate whether the built-in historical memory of the CrewAI framework affects accuracy, we compared four settings on the GAIA dataset: (i) using a memory window size of 1, (ii) using a memory window size of 25, (iii) using a memory window size of 35, and (iv) using the default memory window size. Here, the memory window size indicates the interval of queries after which the Agent is re-initialized (e.g., every 1, 25, or 35 queries), while the default setting corresponds to initialization only at the very beginning of the task. Results are shown in Table 6.
           </Text>
           <Title order={4}><span style={{color: 'red'}}>[Unique]</span>Underlying Mechanism: Accuracy-Efficiency Tradeoff</Title>
           <Text>
-          Task accuracy reaches its peak when an appropriate memory window size is selected. 
+          We observed that as the memory window size increases, token consumption rises steadily, while accuracy first improves and then declines. This indicates that incorporating an appropriate amount of memory can enhance task performance; however, excessive memory not only leads to escalating token costs and reduced efficiency, but also fails to yield higher accuracy. In practice, the memory window size should therefore be tuned to achieve a reasonable balance between accuracy and efficiency.
           </Text>
         </div>
       </>
@@ -611,7 +611,66 @@ export default function Benchmark() {
       </Text>
 
       <Title order={2} className={css.pagetitle}>
-        Common Insights
+        Unique Insights among Frameworks
+      </Title>
+
+
+      <Title order={3} className={css.pagetitle}>
+        Accuracy-Efficiency Tradeoff
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_tradeoff}
+        </Accordion>
+      </Stack>
+
+
+      <Title order={3} className={css.pagetitle}>
+        Communication Size
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_com_size}
+        </Accordion>
+      </Stack>
+
+
+      <Title order={3} className={css.pagetitle}>
+        Accuracy
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_accuracy2}
+        </Accordion>
+      </Stack>
+
+      
+
+
+
+      <Title order={2} className={css.pagetitle}>
+        Common Insights among Frameworks
       </Title>
 
       <Title order={3} className={css.pagetitle}>
@@ -684,7 +743,7 @@ export default function Benchmark() {
       </Stack>
 
       <Title order={2} className={css.pagetitle}>
-        Variational Insights
+        Variational Insights among Frameworks
       </Title>
       
       <Title order={3} className={css.pagetitle}>
@@ -737,59 +796,7 @@ export default function Benchmark() {
       </Stack>
 
 
-      <Title order={2} className={css.pagetitle}>
-        Unique Insights
-      </Title>
-
-
-      <Title order={3} className={css.pagetitle}>
-        Communication Size
-      </Title>
-      {/* <Text mb="sm" c="dimmed">
-        We use an open-sourced{" "}
-        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
-          toolkit
-        </Anchor>{" "}
-        to explore the potential leakage of user data when using LLMs
-      </Text> */}
-      <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Accordion variant="contained" radius="md" defaultValue="">
-          {items_com_size}
-        </Accordion>
-      </Stack>
-
-
-      <Title order={3} className={css.pagetitle}>
-        Accuracy
-      </Title>
-      {/* <Text mb="sm" c="dimmed">
-        We use an open-sourced{" "}
-        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
-          toolkit
-        </Anchor>{" "}
-        to explore the potential leakage of user data when using LLMs
-      </Text> */}
-      <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Accordion variant="contained" radius="md" defaultValue="">
-          {items_accuracy2}
-        </Accordion>
-      </Stack>
-
-      <Title order={3} className={css.pagetitle}>
-        Accuracy-Efficiency Tradeoff
-      </Title>
-      {/* <Text mb="sm" c="dimmed">
-        We use an open-sourced{" "}
-        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
-          toolkit
-        </Anchor>{" "}
-        to explore the potential leakage of user data when using LLMs
-      </Text> */}
-      <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Accordion variant="contained" radius="md" defaultValue="">
-          {items_tradeoff}
-        </Accordion>
-      </Stack>
+      
 
     </Container>
   );
