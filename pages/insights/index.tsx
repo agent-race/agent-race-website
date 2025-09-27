@@ -490,7 +490,7 @@ const reproducibility = [
           <GAIARun3Table />
           <figure>
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-              <Image radius="md" src="figure8.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+              <Image radius="md" src="Figure8.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
             <Text ta="center" c="dimmed">
               Figure 8. Consistency of Token Consumption and Latency in Repeated Experiments (HumanEval)
@@ -498,7 +498,7 @@ const reproducibility = [
           </figure>
           <figure>
             <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-              <Image radius="md" src="figure9.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+              <Image radius="md" src="Figure9.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
             <Text ta="center" c="dimmed">
               Figure 9. Consistency of Token Consumption and Latency in Repeated Experiments (GAIA)
