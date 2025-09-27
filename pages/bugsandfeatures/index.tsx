@@ -159,12 +159,28 @@ export default function Leaderboard() {
         LangChain
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Image src="langchain_abs.png" alt="defenses" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
-        <Text>LangChain's high level of abstraction and encapsulation posed challenges in measuring specific metrics during our experiments.<br />
+        <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <Image src="langchain_abs.png" alt="defenses" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 10. LangChain's high level of abstraction and encapsulation.
+          </Text>
+        </figure>
+        
+        <Text>As shown in Figure 10, LangChain's high level of abstraction and encapsulation posed challenges in measuring specific metrics during our experiments.<br />
         </Text>
-        <Image src="langchain_bug.png" alt="defenses" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+        <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+            <Image src="langchain_bug.png" alt="defenses" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 11. LangChain occasionally terminated processes prematurely.
+          </Text>
+        </figure>
+        
         <Text>
-        Additionally, LangChain occasionally terminated processes prematurely after reading files from the GAIA dataset, returning the file content directly rather than proceeding with the expected operations.
+        Additionally, LangChain occasionally terminated processes prematurely after reading files from the GAIA dataset, returning the file content directly rather than proceeding with the expected operations (see Figure 11).
         </Text>
       </Stack>
 
@@ -203,7 +219,15 @@ export default function Leaderboard() {
         Llamaindex
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Image src="llamaindex_bug.jpg" alt="radar" radius="md" h="auto" w="75%" fit="contain" mx="auto"/>
+      <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Image src="llamaindex_bug.jpg" alt="radar" radius="md" h="auto" w="75%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 12. LlamaIndex frequently fails to invoke tools correctly.
+          </Text>
+        </figure>
+        
         <Text>LlamaIndex frequently fails to invoke tools correctly, primarily due to the lack of prompt constraints and insufficient post-processing checks on LLM outputs. Without explicit guidance and validation mechanisms, the LLM often produces outputs that do not conform to the expected dictionary format, resulting in tool invocation failures.</Text>
       </Stack>
 
@@ -211,7 +235,15 @@ export default function Leaderboard() {
         Phidata
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Image src="phidata_feature.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+      <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Image src="phidata_feature.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 13. Phidata passes the available tools to the LLM via the "tools" field.
+          </Text>
+        </figure>
+        
         <Text>In the ReAct workflow, Phidata passes the available tools to the LLM via the "tools" field. Unlike Llamaindex, which emphasizes the functionality and usage of tools in the system prompt, Phidata rarely invokes the code execution tool when processing queries from humaneval.</Text>
       </Stack>
 
@@ -219,11 +251,27 @@ export default function Leaderboard() {
         PydanticAI
       </Title>
       <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Image src="radar_tools.jpg" alt="radar" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
-        <Image src="pydantic_bug2.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+      <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Image src="radar_tools.jpg" alt="radar" radius="md" h="auto" w="50%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 14. Visualization of the average execution time per run of different tools across different frameworks. 
+          </Text>
+        </figure>
+        <figure>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <Image src="pydantic_bug2.jpg" alt="radar" radius="md" h="auto" w="100%" fit="contain" mx="auto"/>
+          </div>
+          <Text ta="center" c="dimmed">
+            Figure 15. PydanticAI's simultaneous invocations of the same tool.
+          </Text>
+        </figure>
+        
+        
         <Text>
           Within the Pydantic ReAct framework, we observed multiple simultaneous invocations of the same tool, which may lead to inefficiencies. Additionally, similar to Phidata, the code execution tool was seldom triggered.<br />
-          Furthermore, the MoA implementation in the Pydantic framework is tool-based, and not all three models are invoked for every query.
+          Furthermore, the MoA implementation in the Pydantic framework is tool-based, and not all three models are invoked for every query. We observe that when the number of sub-agents is 3, 6, 9, 12, and 15, there were 232, 89, 229, 485, and 663 instances, respectively, where sub-agents were not invoked. These skipped invocations are randomly distributed across different queries, resulting in lower token consumption than expected.
         </Text>
       </Stack>
       {/* <Title order={1} className={css.pagetitle}>

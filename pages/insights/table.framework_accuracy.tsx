@@ -19,9 +19,10 @@ const TableAccuracy = () => {
   const topBorder = { borderTop: "2pt solid #CED4DA;" };
   const rightBorder = { borderRight: "2pt solid #CED4DA;" };
   const rows = [
-    { datasets: "GAIA", langchain: "0.1515", autogen: "0.1030", agentscope: "0.2000", crewai: "0.1697", llamaindex: "0.0788", phidata: "0.2182", pydantic:"0.1394" },
+    { datasets: "GAIA", langchain: "0.152±0.012", autogen: "0.107±0.003", agentscope: "0.212±0.012", crewai: "0.222±0.009", llamaindex: "0.198±0.015", phidata: "0.191±0.026", pydantic:"0.157±0.012" },
     { datasets: "HumanEval", langchain: "0.573", autogen: "0.884", agentscope: "0.884", crewai: "0.872", llamaindex: "0.872", phidata: "0.902", pydantic:"0.921" },
     { datasets: "MMLU", langchain: "0.820", autogen: "0.817", agentscope: "0.827", crewai: "0.813", llamaindex: "0.745", phidata: "0.792", pydantic:"0.788" },
+    { datasets: "OK-VQA", langchain: "-", autogen: "0.305", agentscope: "0.436", crewai: "0.362", llamaindex: "0.307", phidata: "0.331", pydantic:"0.317" },
   ];
 
   const elements = rows.map((row, index) => {
