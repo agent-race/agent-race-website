@@ -665,28 +665,7 @@ export default function Benchmark() {
         </Accordion>
       </Stack>
 
-      
-
-      
-
-      
-
-
-      <Title order={3} className={css.pagetitle}>
-        Accuracy-Efficiency Tradeoff
-      </Title>
-      {/* <Text mb="sm" c="dimmed">
-        We use an open-sourced{" "}
-        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
-          toolkit
-        </Anchor>{" "}
-        to explore the potential leakage of user data when using LLMs
-      </Text> */}
-      <Stack bg="var(--mantine-color-body)" gap="sm">
-        <Accordion variant="contained" radius="md" defaultValue="">
-          {items_tradeoff}
-        </Accordion>
-      </Stack>
+    
 
       <Title order={3} className={css.pagetitle}>
         Reproducibility
@@ -793,6 +772,22 @@ export default function Benchmark() {
       <Stack bg="var(--mantine-color-body)" gap="sm">
         <Accordion variant="contained" radius="md" defaultValue="">
           {items_accuracy2}
+        </Accordion>
+      </Stack>
+
+      <Title order={3} className={css.pagetitle}>
+        Accuracy-Efficiency Tradeoff
+      </Title>
+      {/* <Text mb="sm" c="dimmed">
+        We use an open-sourced{" "}
+        <Anchor href="https://github.com/eth-sri/SynthPAI/" target="_blank">
+          toolkit
+        </Anchor>{" "}
+        to explore the potential leakage of user data when using LLMs
+      </Text> */}
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_tradeoff}
         </Accordion>
       </Stack>
 
