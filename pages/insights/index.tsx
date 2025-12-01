@@ -31,6 +31,10 @@ import HumanEvalRun3Table from "./table.run3-humaneval"
 import GAIARun1Table from "./table.run1-gaia"
 import GAIARun2Table from "./table.run2-gaia"
 import GAIARun3Table from "./table.run3-gaia";
+import RelationPearson from "./table.relation-pearson-token";
+import RelationPearsonRounds from "./table.relation-pearson-round";
+import ToolComparison from "./table.tool-comparison";
+import PromptComparison from "./table.prompt-comparison";
 import TableIrrelevantTime from "./table.irrelevant_time";
 import IrrelevantFailure from "./table.irrelevant_failure";
 import TableIrrelevantToken from "./table.irrelevant_token";
@@ -97,36 +101,31 @@ const time_and_token = [
       </>
     ),
   },
-  // {
-  //   emoji: <IconDimensions color="#41B755" />,
-  //   value: "Token consumption may vary across frameworks even when executing the same workflow, owing to differences in implementation strategies.",
-  //   description: (
-  //     <>
-  //       <TableGaiaDetailedResults />
-  //       <TableHumanEvalDetailedResults />
-  //       <AlpacaEvalTable/>
-  //       {/* <figure>
-  //         <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-  //           <Image radius="md" src="figure3.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
-  //         </div>
-  //         <Text ta="center" c="dimmed">
-  //           Figure 3. Token consumption and execution time per query of different frameworks.
-  //         </Text>
-  //       </figure> */}
-  //       <div>
-  //         <Title order={4}>Key Observations</Title>
-  //         <Text>
-  //           In the results of ReAct workflow, it can be observed that even when using the same ReAct workflow, AgentScope exhibits a significant discrepancy in token usage between the GAIA and HumanEval datasets, with exceptionally high token consumption on GAIA. This is primarily because AgentScope includes the entire memory of the agent in the prompt during every LLM invocation. As the number of reasoning steps increases, the prompt length grows rapidly. While this issue is less apparent in the relatively simple HumanEval dataset, it becomes prominent in the more complex GAIA tasks.<br/>
-  //           The high token usage observed in CrewAI's ReAct workflow can be attributed to the same reason. In fact, this issue is even more pronounced in CrewAI than in AgentScope, with significantly elevated token consumption observed across both the GAIA and HumanEval datasets.
-  //         </Text>
-  //         <Title order={4}>Underlying Mechanism: Overly Detailed Observations</Title>
-  //         <Text>
-  //           In contrast, the majority of token consumption in LlamaIndex and Pydantic arises from the observation segments returned to the LLM after tool invocations. In the GAIA dataset, where tasks are complex and involve frequent tool usage, this results in substantial prompt token overhead.
-  //         </Text>
-  //       </div>
-  //     </>
-  //   ),
-  // },
+  {
+    emoji: <IconDimensions color="#41B755" />,
+    value: "Token usage and accuracy are not strongly correlated, and spending more tokens or LLM calls does not reliably lead to better correctness.",
+    description: (
+      <>
+        <RelationPearson />
+        {/* <TableGaiaDetailedResults /> */}
+        {/* <TableHumanEvalDetailedResults /> */}
+        {/* <AlpacaEvalTable/> */}
+        <RelationPearsonRounds />
+        <div>
+          {/* <Title order={4}>Key Observations</Title> */}
+          <Text>
+          We also compute the Pearson correlation coefficients between token counts and accuracy. For GAIA and VQA, each successful query is assigned a value of 1 and each failed query a value of 0, whereas ScienceWorld uses the query’s numerical score. The results are presented in Table 30. We observe that nearly all Pearson coefficients are negative, which is likely attributable to the fact that queries requiring a larger number of tokens tend to be inherently more challenging and therefore more prone to failure. 
+          We observe that the correlation between token consumption and accuracy is generally weak across all framework-dataset pairs (all |r| &lt; 0.35). Moreover, most coefficients are negative, indicating that within a given framework successful queries tend to use slightly fewer tokens than failed ones. This suggests that simply "trying harder" with more steps and longer prompts does not systematically improve correctness; on the contrary, harder instances often trigger longer trajectories that still end in failure.  Overall, these results indicate that our efficiency measurements are not merely capturing frameworks that "fail quickly"---if anything, failures are frequently associated with higher token usage. <br/>
+          We also compute the Pearson coefficient between the number of LLM calls and accuracy within a single framework. The results are available at Table 31, which are consistent with Table 30.
+          </Text>
+          {/* <Title order={4}>Underlying Mechanism: Overly Detailed Observations</Title> */}
+          {/* <Text>
+            In contrast, the majority of token consumption in LlamaIndex and Pydantic arises from the observation segments returned to the LLM after tool invocations. In the GAIA dataset, where tasks are complex and involve frequent tool usage, this results in substantial prompt token overhead.
+          </Text> */}
+        </div>
+      </>
+    ),
+  },
   // {
   //   emoji: <IconCornerUpRightDouble color="#41B755" />,
   //   value: "Parallel invocation reduces overall runtime.",
@@ -445,6 +444,41 @@ const accuracy2=[
       </>
     ),
   },
+  {
+    emoji: <IconComponents color="#41B755" />,
+    value: "The scalability of misc overhead in multi-turn reasoning is architecture-dependent, emerging when agent frameworks link context growth to repeated aggregation and parsing operations.",
+    description: (
+      <>
+        <div>
+          <figure>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <Image radius="md" src="ScienceWorld.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            </div>
+            <Text ta="center" c="dimmed">
+              Figure 6. ScienceWorld
+            </Text>
+          </figure>
+          <p></p>
+          <Title order={4}>Key Observations</Title>
+          <Text>
+          As illustrated in the Figure 6, a substantial portion of LlamaIndex's total execution time is attributed to runtime misc. This overhead originates directly from the particular internal implementation of LlamaIndex’s ReAct workflow, which integrates the LLM output with tool results at the end of every reasoning turn. While this implementation detail imposes negligible cost when the number of turns is limited, the burden becomes increasingly pronounced as the contextual length expands across turns.
+          </Text>
+          <Title order={4}><span style={{color: 'red'}}>[Unique]</span> Underlying Mechanism: Context Growth–Induced Increases in Aggregation and Parsing Time</Title>
+          <figure>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <Image radius="md" src="MiscTime.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            </div>
+            <Text ta="center" c="dimmed">
+              Figure 7. Visualization of the tool-observation aggregation time per ReAct round in the LlamaIndex framework (left), and the output-parsing time per ReAct round in the LlamaIndex framework (right).
+            </Text>
+          </figure>
+          <Text>
+           In the LlamaIndex framework, we select a subset of queries and visualize how their tool-observation aggregation time and output-parsing time evolve as the number of ReAct iterations increases, as illustrated in Figure 7. Evidently, the context expansion induced by additional ReAct rounds introduces substantial miscellaneous latency into the overall system execution. 
+          </Text>
+        </div>
+      </>
+    ),
+  },
 ];
 
 
@@ -452,7 +486,7 @@ const accuracy2=[
 const tradeoff = [
   {
     emoji: <IconComponents color="#41B755" />,
-    value: "The complete absence of output constraints in LLMs may lead to tool invocation failures, whereas excessively strict output validation can incur substantial token overhead and decrease the response success rate.",
+    value: "Larger memory windows do not necessarily improve accuracy and can substantially degrade efficiency.",
     description: (
       <>
         <div>
@@ -461,7 +495,7 @@ const tradeoff = [
           <p></p>
           <Title order={4}>Key Observations</Title>
           <Text>
-          To investigate whether the built-in historical memory of the CrewAI framework affects accuracy, we compared four settings on the GAIA dataset: (i) using a memory window size of 1, (ii) using a memory window size of 25, (iii) using a memory window size of 35, and (iv) using the default memory window size. Here, the memory window size indicates the interval of queries after which the Agent is re-initialized (e.g., every 1, 25, or 35 queries), while the default setting corresponds to initialization only at the very beginning of the task. Results are shown in Table 6.
+          To investigate whether the built-in historical memory of the CrewAI framework affects accuracy, we compared four settings on the GAIA dataset: (i) using a memory window size of 1, (ii) using a memory window size of 25, (iii) using a memory window size of 35, and (iv) using the maximum memory window size. Here, the memory window size indicates the interval of queries after which the Agent is re-initialized (e.g., every 1, 25, or 35 queries), while the maximum setting corresponds to initialization only at the very beginning of the task. Results are shown in Table 6.
           </Text>
           <Title order={4}><span style={{color: 'red'}}>[Unique]</span>Underlying Mechanism: Accuracy-Efficiency Tradeoff</Title>
           <Text>
@@ -493,7 +527,7 @@ const reproducibility = [
               <Image radius="md" src="Figure8.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
             <Text ta="center" c="dimmed">
-              Figure 8. Consistency of Token Consumption and Latency in Repeated Experiments (HumanEval)
+              Figure 12. Consistency of Token Consumption and Latency in Repeated Experiments (HumanEval)
             </Text>
           </figure>
           <figure>
@@ -501,7 +535,7 @@ const reproducibility = [
               <Image radius="md" src="Figure9.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
             </div>
             <Text ta="center" c="dimmed">
-              Figure 9. Consistency of Token Consumption and Latency in Repeated Experiments (GAIA)
+              Figure 13. Consistency of Token Consumption and Latency in Repeated Experiments (GAIA)
             </Text>
           </figure>
           <p></p>
@@ -525,11 +559,90 @@ const reproducibility = [
   },
 ];
 
+const adaptability =[
+  {
+    emoji: <IconComponents color="#41B755" />,
+    value: "Different LLM-agent frameworks exhibit varying levels of adaptability to SLMs. Some frameworks remain robust when deployed with SLMs, whereas others fail to perform the task effectively.",
+    description: (
+      <>
+        <div>
+          {/* <TableAccuracy /> */}
+          {/* <CrewAIMemoryWindowTable /> */}
+          <figure>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <Image radius="md" src="qwen3-80-gaia.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            </div>
+            <Text ta="center" c="dimmed">
+              Figure 10. Consistency of Token Consumption and Latency Across Repeated GAIA Experiments Using the Qwen3-Next-80B-A3B-Instruct Model
+            </Text>
+          </figure>
+
+          <figure>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <Image radius="md" src="glm32-gaia.jpg" alt="" h="auto" w="100%" fit="contain" style={{ maxWidth: "700px" }} />
+            </div>
+            <Text ta="center" c="dimmed">
+              Figure 11. Consistency of Token Consumption and Latency Across Repeated GAIA Experiments Using the GLM-Z1-32B Model
+            </Text>
+          </figure>
+          <p></p>
+          <Title order={4}>Key Observations</Title>
+          <Text>
+            It is worth noting that when the model is configured as GLM-Z1-32B, Phidata and LlamaIndex exhibit substantial freezing and task-execution failures, preventing the evaluation of their efficiency performance. To further investigate whether this issue becomes more pronounced with smaller-parameter models, we evaluate the executability of each framework using Mistral-7B-Instruct. The results indicate that LlamaIndex, AutoGen, PydanticAI, and Phidata all fail to complete the tasks successfully.
+          </Text>
+          <Title order={4}><span style={{color: 'red'}}>[Variational]</span>Underlying Mechanism: Failure to Produce Valid Tool-Invocation Outputs or Blank Responses</Title>
+          <Text>
+            In our experiments, we observe that the LlamaIndex framework fails to complete tasks because the small language model frequently returns empty outputs, causing the ReAct process to stall and ultimately terminate abnormally. In addition, some frameworks are unable to produce correctly formatted tool-invocation outputs, which prevents them from leveraging tools to retrieve necessary information. AutoGen is one such example. Unlike LlamaIndex, however, AutoGen does not terminate abruptly; instead, the small model subsequently generates hallucinated content, effectively “pretending” to have produced valid tool-call results.
+          </Text>
+        </div>
+      </>
+    ),
+  },
+]
+
+
+const implementation =[
+  {
+    emoji: <IconComponents color="#41B755" />,
+    value: "Different frameworks adopt distinct tool implementations and prompt designs, which can substantially impact efficiency.",
+    description: (
+      <>
+        <div>
+          {/* <TableAccuracy /> */}
+          {/* <CrewAIMemoryWindowTable /> */}
+          <ToolComparison />
+          <PromptComparison />
+
+          <p></p>
+          {/* <Title order={4}>Key Observations</Title>
+          <Text>
+            It is worth noting that when the model is configured as GLM-Z1-32B, Phidata and LlamaIndex exhibit substantial freezing and task-execution failures, preventing the evaluation of their efficiency performance. To further investigate whether this issue becomes more pronounced with smaller-parameter models, we evaluate the executability of each framework using Mistral-7B-Instruct. The results indicate that LlamaIndex, AutoGen, PydanticAI, and Phidata all fail to complete the tasks successfully.
+          </Text>
+          <Title order={4}><span style={{color: 'red'}}>[Variational]</span>Underlying Mechanism: Failure to Produce Valid Tool-Invocation Outputs or Blank Responses</Title> */}
+          <Text>
+          In our evaluation, whenever a framework does not support a required functionality, we implement the corresponding tool ourselves by adopting a popular tool. To isolate the impact of concrete tool implementations, we compare tools implemented by different frameworks against our own implementations on the same input dataset with 200 queries. As shown in Table 45, tool implementations vary substantially across frameworks: even for identical inputs, the same tool (e.g., XLSX reader, figure loader, code executor) can differ by more than an order of magnitude in runtime, depending on the framework’s internal design. This indicates that tool choice is not merely an engineering detail, but a key performance factor that can significantly affect the efficiency and responsiveness of multi-agent systems. Moreover, our implementations are typically the most lightweight, demonstrating that they introduce minimal overhead beyond the underlying operations. <br/>
+          We also analyze efficiency discrepancies between our independently implemented GAIA prompt and the framework-native prompts on successful cases, as summarized in Table 46. Since the Agentscope prompt is embedded and cannot be modified, the comparison is restricted to LangChain and LlamaIndex. The results show that our prompt can reduce both the total number of tokens and the end-to-end latency by roughly 25%. This further highlights that prompt design is an important factor for improving the efficiency of multi-agent systems.
+          </Text>
+        </div>
+      </>
+    ),
+  },
+]
+
 
 export default function Benchmark() {
-  const items_time_and_token = time_and_token.map((item) => (
+  const items_time_and_token = time_and_token.map((item, index) => (
     <Accordion.Item key={item.value} value={item.value}>
-      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Control icon={item.emoji}>
+      {index === 1 && <span style={{
+          backgroundColor: '#41c15b', // Light yellow background
+          borderRadius: '12px',        // Rounded corners
+          padding: '2px 8px',          // Padding around the text
+          fontWeight: 'bold',          // Make it bold
+          color: '#ffffff'             // Red text color
+        }}>
+          New
+        </span> } {item.value}</Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
@@ -562,16 +675,37 @@ export default function Benchmark() {
     </Accordion.Item>
   ));
 
-  const items_accuracy2 = accuracy2.map((item) => (
+  const items_accuracy2 = accuracy2.map((item, index) => (
     <Accordion.Item key={item.value} value={item.value}>
-      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Control icon={item.emoji}>
+      {index === 1 && <span style={{
+          backgroundColor: '#41c15b', // Light yellow background
+          borderRadius: '12px',        // Rounded corners
+          padding: '2px 8px',          // Padding around the text
+          fontWeight: 'bold',          // Make it bold
+          color: '#ffffff'             // Red text color
+        }}>
+          New
+        </span> } {item.value}
+      </Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
 
   const items_tradeoff = tradeoff.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
-      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Control icon={item.emoji}>
+        <span style={{
+          backgroundColor: '#41c15b', // Light yellow background
+          borderRadius: '12px',        // Rounded corners
+          padding: '2px 8px',          // Padding around the text
+          fontWeight: 'bold',          // Make it bold
+          color: '#ffffff'             // Red text color
+        }}>
+          New
+        </span> {item.value}
+      </Accordion.Control> 
+      {/* delete Accordion.Control to remove new tag */}
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
@@ -593,6 +727,38 @@ export default function Benchmark() {
   const items_reproducibility = reproducibility.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Panel>{item.description}</Accordion.Panel>
+    </Accordion.Item>
+  ));
+  
+  const items_adaptability = adaptability.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Control icon={item.emoji}>
+      <span style={{
+          backgroundColor: '#41c15b', // Light yellow background
+          borderRadius: '12px',        // Rounded corners
+          padding: '2px 8px',          // Padding around the text
+          fontWeight: 'bold',          // Make it bold
+          color: '#ffffff'             // Red text color
+        }}>
+          New
+        </span> {item.value}</Accordion.Control>
+      <Accordion.Panel>{item.description}</Accordion.Panel>
+    </Accordion.Item>
+  ));
+
+  const items_implementation = implementation.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Control icon={item.emoji}>
+      <span style={{
+          backgroundColor: '#41c15b', // Light yellow background
+          borderRadius: '12px',        // Rounded corners
+          padding: '2px 8px',          // Padding around the text
+          fontWeight: 'bold',          // Make it bold
+          color: '#ffffff'             // Red text color
+        }}>
+          New
+        </span> {item.value}</Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
@@ -650,7 +816,7 @@ export default function Benchmark() {
 
 
       <Title order={3} className={css.pagetitle}>
-        Accuracy
+        Execution Time and Token consumption
       </Title>
       {/* <Text mb="sm" c="dimmed">
         We use an open-sourced{" "}
@@ -745,6 +911,28 @@ export default function Benchmark() {
       <Title order={2} className={css.pagetitle}>
         Variational Insights among Frameworks
       </Title>
+
+      <Title order={3} className={css.pagetitle}>
+        Adaptability to SLMs
+      </Title>
+      
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_adaptability}
+        </Accordion>
+      </Stack>
+
+      <Title order={3} className={css.pagetitle}>
+        Different Implementations
+      </Title>
+      
+      <Stack bg="var(--mantine-color-body)" gap="sm">
+        <Accordion variant="contained" radius="md" defaultValue="">
+          {items_implementation}
+        </Accordion>
+      </Stack>
+
+      
       
       <Title order={3} className={css.pagetitle}>
         Scalability

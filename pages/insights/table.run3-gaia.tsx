@@ -39,7 +39,7 @@ const GAIARun3Table = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <Table highlightOnHover withTableBorder captionSide="bottom" withRowBorders>
-        <Table.Caption>Table 28: GAIA Run 3</Table.Caption>
+        <Table.Caption>Table 42: GAIA Run 3</Table.Caption>
         <Table.Thead>
           <Table.Tr>
             <Table.Th colSpan={2}></Table.Th>

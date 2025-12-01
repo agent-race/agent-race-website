@@ -4,7 +4,7 @@ import { Dots } from "./Dots";
 import classes from "./HeroText.module.css";
 import { useRouter } from "next/router";
 import { IconAward, IconCertificate, IconBolt } from "@tabler/icons-react";
-
+import { Lightning } from "./Lightning";
 
 export function HeroText(scrollIntoView: any) {
   const router = useRouter();
@@ -14,6 +14,8 @@ export function HeroText(scrollIntoView: any) {
       <Dots className={classes.dots} style={{ left: 60, top: 0 }} />
       <Dots className={classes.dots} style={{ left: 0, top: 140 }} />
       <Dots className={classes.dots} style={{ right: 0, top: 60 }} />
+      {/* <Lightning className={classes.dots} style={{ right: 111, top: 10,transform: "rotate(50deg)" }} /> */}
+      {/* <Lightning className={classes.dots} style={{ left: 111, top: 10,transform: "scaleX(-1) rotate(50deg)" }} /> */}
       {/* <IconBolt className={classes.dots} style={{ left: 0, top: 0 }} />
       <IconBolt className={classes.dots} style={{ left: 60, top: 0 }} />
       <IconBolt className={classes.dots} style={{ left: 0, top: 140 }} />
