@@ -36,7 +36,7 @@ export default function Home() {
         <Text>{line}</Text>
       </div>
     );
-  };
+  }; 
 
   const display = bibtext.split("\n").map((line, key) => procLine(line, key));
 
