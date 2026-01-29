@@ -634,15 +634,7 @@ export default function Benchmark() {
   const items_time_and_token = time_and_token.map((item, index) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>
-      {index === 1 && <span style={{
-          backgroundColor: '#41c15b', // Light yellow background
-          borderRadius: '12px',        // Rounded corners
-          padding: '2px 8px',          // Padding around the text
-          fontWeight: 'bold',          // Make it bold
-          color: '#ffffff'             // Red text color
-        }}>
-          New
-        </span> } {item.value}</Accordion.Control>
+       {item.value}</Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
@@ -678,15 +670,7 @@ export default function Benchmark() {
   const items_accuracy2 = accuracy2.map((item, index) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>
-      {index === 1 && <span style={{
-          backgroundColor: '#41c15b', // Light yellow background
-          borderRadius: '12px',        // Rounded corners
-          padding: '2px 8px',          // Padding around the text
-          fontWeight: 'bold',          // Make it bold
-          color: '#ffffff'             // Red text color
-        }}>
-          New
-        </span> } {item.value}
+       {item.value}
       </Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
@@ -695,15 +679,7 @@ export default function Benchmark() {
   const items_tradeoff = tradeoff.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>
-        <span style={{
-          backgroundColor: '#41c15b', // Light yellow background
-          borderRadius: '12px',        // Rounded corners
-          padding: '2px 8px',          // Padding around the text
-          fontWeight: 'bold',          // Make it bold
-          color: '#ffffff'             // Red text color
-        }}>
-          New
-        </span> {item.value}
+         {item.value}
       </Accordion.Control> 
       {/* delete Accordion.Control to remove new tag */}
       <Accordion.Panel>{item.description}</Accordion.Panel>
@@ -734,15 +710,7 @@ export default function Benchmark() {
   const items_adaptability = adaptability.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>
-      <span style={{
-          backgroundColor: '#41c15b', // Light yellow background
-          borderRadius: '12px',        // Rounded corners
-          padding: '2px 8px',          // Padding around the text
-          fontWeight: 'bold',          // Make it bold
-          color: '#ffffff'             // Red text color
-        }}>
-          New
-        </span> {item.value}</Accordion.Control>
+      {item.value}</Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));
@@ -750,15 +718,7 @@ export default function Benchmark() {
   const items_implementation = implementation.map((item) => (
     <Accordion.Item key={item.value} value={item.value}>
       <Accordion.Control icon={item.emoji}>
-      <span style={{
-          backgroundColor: '#41c15b', // Light yellow background
-          borderRadius: '12px',        // Rounded corners
-          padding: '2px 8px',          // Padding around the text
-          fontWeight: 'bold',          // Make it bold
-          color: '#ffffff'             // Red text color
-        }}>
-          New
-        </span> {item.value}</Accordion.Control>
+       {item.value}</Accordion.Control>
       <Accordion.Panel>{item.description}</Accordion.Panel>
     </Accordion.Item>
   ));

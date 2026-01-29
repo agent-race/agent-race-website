@@ -56,8 +56,8 @@ export function Header() {
       <meta property='og:description' content="A toolkit crafted specifically for the systematic evaluation of data privacy risks in LLMs, incorporating diverse attack and defense strategies, and handling various data types and metrics." />
       <Container size="md" className={classes.inner}>
         {/* <MantineLogo size={28} /> */}
-        <Text visibleFrom="xs">AgentRace: Benchmarking Efficiency in LLM Agent Frameworks</Text>
-        <Text hiddenFrom="xs">AgentRace</Text> {/* 再小的话，就只显示 LLM-PBE */}
+        <Text visibleFrom="xs" style={{ fontWeight: 'bold' }}>AgentRace: Benchmarking Efficiency in LLM Agent Frameworks</Text>
+        <Text hiddenFrom="xs" style={{ fontWeight: 'bold' }}>AgentRace</Text> {/* 再小的话，就只显示 LLM-PBE */}
         <Group gap={5} visibleFrom="md">
           {items}
         </Group>

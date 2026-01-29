@@ -74,7 +74,7 @@ export default function Home() {
               diverse agent frameworks, execution workflows, task complexities, and
               performance analysis.
             </Text>
-            <Image src="system_components.png" alt="System Architecture of AgentRace" radius="md" />
+            <Image src="system_components.jpg" alt="System Architecture of AgentRace" radius="md" />
           </Card>
 
           {/* <Divider /> */}
